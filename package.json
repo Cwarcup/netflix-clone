@@ -1,10 +1,5 @@
 {
   "name": "netflix-clone",
-  "author": {
-    "name": "Curtis Warcup",
-    "email": "curtis.gwarcup@gmail.com"
-  },
-  "description": "Netflix clone built with Next.js",
   "version": "0.1.0",
   "private": true,
   "scripts": {
