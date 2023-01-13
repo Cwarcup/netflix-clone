@@ -26,7 +26,29 @@
 - ISG
 
 ## Tech Stack
+
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [GraphQL](https://graphql.org/)
 - [Magic](https://magic.link/)
+
+## Component Architecture
+
+Netflix has a pretty complex UI, but let's break it down into components.
+
+- Header/Navbar
+  - Logo
+  - Favourites List
+  - Profile
+- Banner
+  - Large image
+  - Title, Description
+  - Play button
+- Categories List
+  - Title
+  - List of videos (Card)
+    - On hover...
+      - Title, Description, Play button, Like/Dislike button
+- Feature Section
+  - Tall images list
+

@@ -1,8 +1,9 @@
 import "@/styles/globals.css"
-import { Roboto_Slab } from "@next/font/google"
+import { Roboto } from "@next/font/google"
 import type { AppProps } from "next/app"
 
-const roboto_slab = Roboto_Slab({
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 })
 
@@ -11,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <style jsx global>{`
         html {
-          font-family: ${roboto_slab.style.fontFamily};
+          font-family: ${roboto.style.fontFamily};
         }
       `}</style>
       <Component {...pageProps} />
