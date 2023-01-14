@@ -1,6 +1,7 @@
 import Head from "next/head"
 import styles from "@/styles/Home.module.css"
-import Banner from "@/components/Banner"
+import Banner from "@/components/Banner/Banner"
+import Navbar from "@/components/Navbar/Navbar"
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
         <title>Netflix Clone</title>
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
-      {/* <Navbar /> */}
+      <Navbar username="Curtis" />
       <Banner
         title="The Witcher"
         subTitle="A Netflix Original Series"
