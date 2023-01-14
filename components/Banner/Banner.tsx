@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { RiPlayFill, RiInformationLine } from "react-icons/ri"
 
 import styles from "./Banner.module.css"
 
@@ -24,24 +25,13 @@ export default function Banner(props: BannerProps) {
           </div>
           <h3 className={styles.title}>{title}</h3>
           <h3 className={styles.subTitle}>{subTitle}</h3>
-
           <div className={styles.playBtnWrapper}>
             <button className={styles.btnWithIcon} onClick={handleOnPlay}>
-              <Image
-                src="/static/play_arrow.svg"
-                alt="Play icon"
-                width={32}
-                height={32}
-              />
+              <RiPlayFill size={32} color="black" title="Play" />
               <span className={styles.playText}>Play</span>
             </button>
             <button className={styles.moreInfoBtn}>
-              <Image
-                src="/static/fill.svg"
-                alt="Info icon"
-                width={28}
-                height={28}
-              />
+              <RiInformationLine size={28} color="white" title="More Info" />
               <span className={styles.moreInfoText}>More Info</span>
             </button>
           </div>

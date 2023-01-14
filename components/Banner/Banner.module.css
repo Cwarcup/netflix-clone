@@ -77,8 +77,8 @@
   padding-right: 1.25rem;
   margin-top: 1.25rem;
   border-radius: 0.25rem;
-  background-color: var(--black10);
-  width: 9rem;
+  background-color: #3b3c36;
+  opacity: 0.8;
 }
 
 .moreInfoText {
@@ -118,6 +118,8 @@
   background-color: var(--white10);
   width: 8rem;
 }
+
+
 
 @media (min-width: 768px) {
   .left {

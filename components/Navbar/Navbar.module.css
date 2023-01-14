@@ -11,10 +11,10 @@
 }
 
 .wrapper {
-  padding-left: 1rem /* 16px */;
-  padding-right: 1rem /* 16px */;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
-  padding: 1.25rem /* 20px */;
+  padding: 1.25rem;
 }
 
 .logoLink {
@@ -23,23 +23,23 @@
   font-size: 1rem;
   align-items: center;
   color: var(--white10);
-  margin-bottom: 1rem /* 16px */;
+  margin-bottom: 1rem;
 }
 
 .logoWrapper {
   color: var(--red);
-  width: 8rem /* 128px */;
+  width: 8rem;
 }
 
 .navItems {
   display: flex;
   flex-direction: row;
   width: 50%;
-  margin-left: 1.5rem /* 24px */;
-  font-size: 0.875rem /* 14px */;
+  margin-left: 1.5rem;
+  font-size: 0.875rem;
   font-size: 1rem;
 
-  line-height: 1.25rem /* 20px */;
+  line-height: 1.25rem;
   list-style: none;
 }
 
@@ -47,7 +47,7 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  margin-right: 0.75rem /* 12px */;
+  margin-right: 0.75rem;
 }
 
 .navItem2 {
@@ -74,17 +74,15 @@
 .navDropdown {
   position: absolute;
   margin-left: auto;
-  margin-top: 0.5rem /* 8px */;
-  padding-top: 0.5rem /* 8px */;
-  padding-bottom: 0.5rem /* 8px */;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   padding-right: 0.5rem;
   background-color: var(--black50);
   border-width: 1px;
   color: var(--white);
-  border-radius: 0.25rem /* 4px */;
-
+  border-radius: 0.25rem;
   border-color: var(--blue);
-
   box-shadow: var(--shadow30, 0 0 #0000), var(--ring-shadow, 0 0 #0000),
     var(--shadow30);
 }
@@ -94,12 +92,11 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
   display: block;
-  padding-left: 0.5rem /* 8px */;
-  padding-right: 0.5rem /* 8px */;
-
-  font-size: 1rem /* 16px */;
-  line-height: 1.25rem /* 20px */;
-  border-radius: 0.25rem /* 4px */;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  border-radius: 0.25rem;
   cursor: pointer;
 }
 
@@ -108,14 +105,14 @@
 }
 
 .lineWrapper {
-  padding-top: 0.5rem /* 8px */;
-  padding-bottom: 0.5rem /* 8px */;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 @media (min-width: 768px) {
   .wrapper {
-    padding-left: 4rem /* 64px */;
-    padding-right: 4rem /* 64px */;
+    padding-left: 4rem;
+    padding-right: 4rem;
     flex-direction: row;
     align-items: center;
   }
@@ -125,10 +122,10 @@
   }
 
   .navItems {
-    margin-left: 3rem /* 48px */;
+    margin-left: 3rem;
   }
 
   .navItem {
-    margin-right: 1.25rem /* 20px */;
+    margin-right: 1.25rem;
   }
 }

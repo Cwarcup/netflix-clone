@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import styles from "./Navbar.module.css"
+import { RiArrowDropDownFill } from "react-icons/ri"
 
 type Props = {
   username: string
@@ -31,14 +32,19 @@ const Navbar = (props: Props) => {
             <button className={styles.usernameBtn}>
               <p className={styles.username}>{username}</p>
               {/** Expand more icon */}
-              <Image
+              {/* <Image
                 src={"/static/expand_more.svg"}
                 alt="Expand dropdown"
                 width={24}
                 height={24}
+              /> */}
+              <RiArrowDropDownFill
+                size={24}
+                color="#fff"
+                title="Expand dropdown"
               />
             </button>
-
+            {/* need some state to open and close */}
             <div className={styles.navDropdown}>
               <div>
                 <a className={styles.linkName}>Sign out</a>

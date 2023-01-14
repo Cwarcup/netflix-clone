@@ -12,9 +12,9 @@ export default function Home() {
       </Head>
       <Navbar username="Curtis" />
       <Banner
-        title="The Witcher"
+        title="Breaking Bad"
         subTitle="A Netflix Original Series"
-        imgUrl="/static/clifford.webp"
+        imgUrl="/static/breaking_bad_banner.jpeg"
       />
       {/* <Card /> */}
     </div>
