@@ -30,8 +30,11 @@ const Card = (props: CardProps) => {
     )
   }
 
+  // if we hover over the first card in the row, we want to scale the image vertically
+  // everything else should scale in X and Y
   const scale = parseInt(id) === 0 ? { scaleY: 1.1 } : { scale: 1.1 }
 
+  // whileHover prop for framer motion
   const shouldHover = shouldScale && {
     whileHover: { ...scale },
   }
@@ -39,7 +42,6 @@ const Card = (props: CardProps) => {
   return (
     <div className={styles.container}>
       <motion.div
-        whileHover={{ scale: 1.2 }}
         className={clx(styles.imgMotionWrapper, imgSizes[size])}
         {...shouldHover}
       >

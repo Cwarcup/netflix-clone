@@ -5,6 +5,60 @@ import Navbar from "@/components/Navbar/Navbar"
 import Card from "@/components/Card/Card"
 import CardSection from "@/components/CardSection/CardSection"
 
+// hard coded data
+const videosArr = [
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "0",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "1",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "3",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "1",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "4",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "1",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "4",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "1",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "4",
+    shouldScale: true,
+  },
+  {
+    imgURL: "/static/breaking_bad_banner.jpeg",
+    id: "1",
+    shouldScale: true,
+  },
+]
+
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -18,78 +72,14 @@ export default function Home() {
         subTitle="A Netflix Original Series"
         imgUrl="/static/breaking_bad_banner.jpeg"
       />
-      <CardSection
-        title="Continue Watching"
-        size="large"
-        cards={[
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-        ]}
-      />
-      <CardSection
-        title="Continue Watching"
-        size="small"
-        cards={[
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "0",
-            shouldScale: true,
-          },
-          {
-            imgURL: "/static/breaking_bad_banner.jpeg",
-            id: "1",
-            shouldScale: true,
-          },
-        ]}
-      />
+      <div className={styles.sectionWrapper}>
+        <CardSection
+          title="Continue Watching"
+          size="large"
+          videos={videosArr}
+        />
+      </div>
+      <CardSection title="Continue Watching" size="small" videos={videosArr} />
       <Card
         imgURL="/static/breaking_bad_banner.jpeg"
         size="large"

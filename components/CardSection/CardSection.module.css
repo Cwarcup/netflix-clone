@@ -7,15 +7,18 @@
 
 .title {
   color: var(--white10);
-  font-weight: 700;
-  font-size: 2rem;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin: 0;
+  z-index: 1;
 }
 
 .cardWrapper {
   display: flex;
   padding-top: 1.7rem;
   padding-bottom: 1.5rem;
-  margin-top: 1.5rem /* 24px */;
+
   margin-right: 0.75rem /* 12px */;
   /* * scroll on the x axis */
   overflow-x: scroll;

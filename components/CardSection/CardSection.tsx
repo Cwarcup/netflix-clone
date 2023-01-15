@@ -5,18 +5,18 @@ import type { CardType, CardSize } from "@/types"
 type CardSectionProps = {
   title: string
   size: CardSize
-  cards: CardType[]
+  videos: CardType[]
 }
 
 const CardSection = (props: CardSectionProps) => {
-  const { title, cards, size } = props
+  const { title, videos, size } = props
 
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.cardWrapper}>
-        {cards.map((card) => (
-          <Card key={card.id} {...card} size={size} />
+        {videos.map((video) => (
+          <Card key={video.id} {...video} size={size} />
         ))}
       </div>
     </section>
