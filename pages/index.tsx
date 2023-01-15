@@ -3,6 +3,7 @@ import styles from "@/styles/Home.module.css"
 import Banner from "@/components/Banner/Banner"
 import Navbar from "@/components/Navbar/Navbar"
 import Card from "@/components/Card/Card"
+import CardSection from "@/components/CardSection/CardSection"
 
 export default function Home() {
   return (
@@ -16,6 +17,78 @@ export default function Home() {
         title="Breaking Bad"
         subTitle="A Netflix Original Series"
         imgUrl="/static/breaking_bad_banner.jpeg"
+      />
+      <CardSection
+        title="Continue Watching"
+        size="large"
+        cards={[
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+        ]}
+      />
+      <CardSection
+        title="Continue Watching"
+        size="small"
+        cards={[
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "0",
+            shouldScale: true,
+          },
+          {
+            imgURL: "/static/breaking_bad_banner.jpeg",
+            id: "1",
+            shouldScale: true,
+          },
+        ]}
       />
       <Card
         imgURL="/static/breaking_bad_banner.jpeg"

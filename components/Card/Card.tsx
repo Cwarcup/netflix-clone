@@ -5,17 +5,17 @@ import clx from "classnames"
 import { motion } from "framer-motion"
 import type { CardSize } from "@/types"
 
-type CardProps = {
-  imgURL: string
-  size: CardSize
-  id: string
-  shouldScale: boolean
-}
-
 const imgSizes = {
   large: styles.lgItem,
   medium: styles.mdItem,
   small: styles.smItem,
+}
+
+type CardProps = {
+  imgURL: string
+  id: string
+  shouldScale: boolean
+  size: CardSize
 }
 
 const Card = (props: CardProps) => {
