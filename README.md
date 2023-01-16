@@ -52,3 +52,10 @@ Netflix has a pretty complex UI, but let's break it down into components.
 - Feature Section
   - Tall images list
 
+## Data Fetching
+
+Static Site Generation (SSG) was not the best option for this project, as the data depends on the logged in user. We face a similar issue if we try to use Incremental Site Regeneration (ISR) with `getStaticProps` and  `revalidate` option. We don't know which videos the user has liked, or which videos they have already watched.
+
+Client Side Rendering (CSR) would work, but because we are fetching and loading video data, it would be slow.
+
+So we need to fetch the data on the server side, and then send it to the client. This is called Server Side Rendering (SSR). Content is loaded on the server, and then sent to the client. This is the best option because the server takes care of fetching, processing and sending the data to the client. That being said, one downside is that every time a user visits the page, the server has to fetch the data again.
