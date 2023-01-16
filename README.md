@@ -59,3 +59,8 @@ Static Site Generation (SSG) was not the best option for this project, as the da
 Client Side Rendering (CSR) would work, but because we are fetching and loading video data, it would be slow.
 
 So we need to fetch the data on the server side, and then send it to the client. This is called Server Side Rendering (SSR). Content is loaded on the server, and then sent to the client. This is the best option because the server takes care of fetching, processing and sending the data to the client. That being said, one downside is that every time a user visits the page, the server has to fetch the data again.
+
+## Sign In 
+
+The user can sign in with their email. We use [Magic](https://magic.link/) to send a magic link to the user's email. The user can then click the link to sign in.
+
