@@ -2,20 +2,21 @@ import Head from "next/head"
 import styles from "@/styles/Home.module.css"
 import Banner from "@/components/Banner/Banner"
 import Navbar from "@/components/Navbar/Navbar"
-import Card from "@/components/Card/Card"
 import CardSection from "@/components/CardSection/CardSection"
-import getYoutubeVideos from "@/lib/getYoutubeVideos"
+import { getVideos, getPopularVideos } from "@/lib/getYoutubeVideos"
 
 import type { CardType } from "@/types"
 
 type HomeProps = {
   disney: CardType[]
-  travel: CardType[]
-  comedy: CardType[]
-  horror: CardType[]
+  popular: CardType[]
 }
 
-export default function Home({ disney, travel, comedy, horror }: HomeProps) {
+export default function Home({
+  disney,
+
+  popular,
+}: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
@@ -29,27 +30,22 @@ export default function Home({ disney, travel, comedy, horror }: HomeProps) {
         imgUrl="/static/breaking_bad_banner.jpeg"
       />
       <div className={styles.sectionWrapper}>
+        <CardSection title="Popular" size="large" videos={popular} />
         <CardSection title="Disney" size="large" videos={disney} />
-        <CardSection title="Travel" size="small" videos={travel} />
-        <CardSection title="Comedy" size="small" videos={comedy} />
-        <CardSection title="Horror" size="small" videos={horror} />
       </div>
     </div>
   )
 }
 
 export async function getServerSideProps() {
-  const disney = await getYoutubeVideos("Disney Trailers")
-  const travel = await getYoutubeVideos("Travel Documentary Trailers")
-  const comedy = await getYoutubeVideos("Comedy Show Trailers")
-  const horror = await getYoutubeVideos("Horror Movie Trailers")
+  const disney = await getVideos("Disney Trailers")
+
+  const popular = await getPopularVideos()
 
   return {
     props: {
       disney,
-      travel,
-      comedy,
-      horror,
+      popular,
     },
   }
 }

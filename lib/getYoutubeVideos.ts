@@ -3,10 +3,13 @@ import type { CardType } from "@/types"
 // function to fetch youtube videos from youtube api
 // accepts a search term as a parameter
 // used in index.tsx on server side rendering
-const getYoutubeVideos = async (searchQuery: string): Promise<CardType[]> => {
+
+const getCommonVideos = async (url: string): Promise<CardType[]> => {
   try {
-    const url = `https://youtube.googleapis.com/youtube/v3/search?q=${searchQuery}&key=${process.env.YOUTUBE_API_KEY}&part=snippet&maxResults=10&type=video&videoEmbeddable=true`
-    const response = await fetch(url, {
+    const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
+    const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
+
+    const response = await fetch(fetchUrl, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -18,7 +21,7 @@ const getYoutubeVideos = async (searchQuery: string): Promise<CardType[]> => {
     // mutate the data to match the CardType interface
     const YoutubeMutatedData: CardType[] = data.items.map((item: any) => {
       return {
-        id: item.id.videoId,
+        id: item.id.videoId || item.id,
         title: item.snippet.title,
         description: item.snippet.description,
         imgUrl: item.snippet.thumbnails.high.url,
@@ -42,4 +45,12 @@ const getYoutubeVideos = async (searchQuery: string): Promise<CardType[]> => {
   }
 }
 
-export default getYoutubeVideos
+export const getVideos = async (searchQuery: string): Promise<CardType[]> => {
+  const url = `search?q=${searchQuery}&part=snippet&maxResults=10&type=video&videoEmbeddable=true`
+  return getCommonVideos(url)
+}
+
+export const getPopularVideos = async (): Promise<CardType[]> => {
+  const url = `videos?part=snippet&chart=mostPopular&maxResults=10&regionCode=US`
+  return getCommonVideos(url)
+}
