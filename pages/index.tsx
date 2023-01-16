@@ -4,11 +4,18 @@ import Banner from "@/components/Banner/Banner"
 import Navbar from "@/components/Navbar/Navbar"
 import Card from "@/components/Card/Card"
 import CardSection from "@/components/CardSection/CardSection"
-import mutateYoutubeRes from "@/lib/mutateYoutubeRes"
-import YoutubeRawData from "@/data/youtubeData.json"
+import getYoutubeVideos from "@/lib/getYoutubeVideos"
 
-export default function Home() {
-  const hardCodedData = mutateYoutubeRes(YoutubeRawData)
+import type { CardType } from "@/types"
+
+type HomeProps = {
+  disney: CardType[]
+  travel: CardType[]
+  comedy: CardType[]
+  horror: CardType[]
+}
+
+export default function Home({ disney, travel, comedy, horror }: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
@@ -22,17 +29,27 @@ export default function Home() {
         imgUrl="/static/breaking_bad_banner.jpeg"
       />
       <div className={styles.sectionWrapper}>
-        <CardSection
-          title="Continue Watching"
-          size="large"
-          videos={hardCodedData}
-        />
-        <CardSection
-          title="Continue Watching"
-          size="small"
-          videos={hardCodedData}
-        />
+        <CardSection title="Disney" size="large" videos={disney} />
+        <CardSection title="Travel" size="small" videos={travel} />
+        <CardSection title="Comedy" size="small" videos={comedy} />
+        <CardSection title="Horror" size="small" videos={horror} />
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const disney = await getYoutubeVideos("Disney Trailers")
+  const travel = await getYoutubeVideos("Travel Documentary Trailers")
+  const comedy = await getYoutubeVideos("Comedy Show Trailers")
+  const horror = await getYoutubeVideos("Horror Movie Trailers")
+
+  return {
+    props: {
+      disney,
+      travel,
+      comedy,
+      horror,
+    },
+  }
 }
