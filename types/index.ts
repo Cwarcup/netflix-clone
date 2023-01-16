@@ -1,7 +1,10 @@
 export type CardSize = "small" | "medium" | "large"
 
 export type CardType = {
-  imgURL: string
+  imgUrl: string
   id: string
-  shouldScale: boolean
+  publishedAt: string
+  title: string
+  description: string
+  shouldScale?: boolean
 }

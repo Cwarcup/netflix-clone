@@ -12,16 +12,16 @@ const imgSizes = {
 }
 
 type CardProps = {
-  imgURL: string
+  imgUrl: string
   id: string
-  shouldScale: boolean
+  shouldScale?: boolean
   size: CardSize
 }
 
 const Card = (props: CardProps) => {
-  const { imgURL, size = "medium", id, shouldScale = true } = props
+  const { imgUrl, size = "medium", id, shouldScale = true } = props
 
-  const [imgSrc, setImgSrc] = useState(imgURL)
+  const [imgSrc, setImgSrc] = useState(imgUrl)
 
   const handleOnError = () => {
     console.log("Error loading image")
@@ -46,7 +46,7 @@ const Card = (props: CardProps) => {
         {...shouldHover}
       >
         <Image
-          src={imgURL}
+          src={imgUrl}
           alt="Picture of the author"
           fill
           className={styles.cardImg}
