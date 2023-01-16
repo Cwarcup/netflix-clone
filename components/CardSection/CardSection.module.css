@@ -17,7 +17,6 @@
 .cardWrapper {
   display: flex;
   padding-top: 1.7rem;
-  padding-bottom: 1.5rem;
 
   margin-right: 0.75rem /* 12px */;
   /* * scroll on the x axis */

@@ -31,7 +31,7 @@ const getCommonVideos = async (url: string): Promise<CardType[]> => {
 
     return YoutubeMutatedData
   } catch (error) {
-    console.error(error)
+    console.log(error)
 
     return [
       {
