@@ -13,34 +13,39 @@ type Props = {}
 const Login = (props: Props) => {
   const router = useRouter()
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   // create a ref for the email input
   const emailInputRef = useRef<HTMLInputElement>(null)
 
   // create a state for the email input
   const [email, setEmail] = useState<string | null>(null)
 
+  // state for error message if email is invalid
   const [userMsg, setUserMsg] = useState<string | null>(null)
 
   // if emailInput is being typed in, clear the user message
   const handleEmailInputTyping = () => {
+    setIsLoading(false)
     setUserMsg(null)
   }
 
   // fn to handle login with email
   const handleLoginWithEmail = async () => {
-    console.log("button clicked")
     // get the value from the email input
     const emailInput = emailInputRef.current?.value || null
-    // need to check if the email is valid
-    // if not, show an error message
-
+    // need to check if the email is valid, if not, show an error message
     if (!emailInput) {
       setUserMsg("Please enter an email address")
+      setIsLoading(false)
+
       return
     }
 
     if (!isValidEmail(emailInput)) {
       setUserMsg("Please enter a valid email address")
+      setIsLoading(false)
+
       return
     }
 
@@ -50,20 +55,25 @@ const Login = (props: Props) => {
     setUserMsg(null)
     // redirect to the home page
     if (emailInput === "curtis.gwarcup@gmail.com") {
-      console.log("emailInput", emailInput)
-      // router.push("/")
+      // if the email is valid, send the email to Magic
       try {
+        setIsLoading(true)
+        // send the email to Magic, and get the DID token
         const didToken = await magicClient?.auth.loginWithMagicLink({
           email: emailInput,
         })
-        console.log("didToken", didToken)
+
+        // if the DID token is returned, redirect to the home page
+        if (didToken) {
+          setIsLoading(false)
+          router.push("/")
+        }
       } catch (error) {
         console.log("error", error)
+        setIsLoading(false)
       }
     }
   }
-
-  console.log("email", email)
 
   return (
     <div className={styles.container}>
@@ -120,7 +130,7 @@ const Login = (props: Props) => {
               onClick={handleLoginWithEmail}
               aria-label="Sign In"
             >
-              Sign In
+              {isLoading ? "Loading..." : "Sign In"}
             </button>
             {/* remember me input and text, is not functional */}
             <div className={styles.rememberMeWrapper}>
