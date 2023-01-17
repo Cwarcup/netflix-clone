@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
@@ -18,9 +18,6 @@ const Login = (props: Props) => {
   // create a ref for the email input
   const emailInputRef = useRef<HTMLInputElement>(null)
 
-  // create a state for the email input
-  const [email, setEmail] = useState<string | null>(null)
-
   // state for error message if email is invalid
   const [userMsg, setUserMsg] = useState<string | null>(null)
 
@@ -29,6 +26,21 @@ const Login = (props: Props) => {
     setIsLoading(false)
     setUserMsg(null)
   }
+
+  // used to set the loading state to false when the route changes
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false)
+    }
+
+    router.events.on("routeChangeComplete", handleComplete)
+    router.events.on("routeChangeError", handleComplete)
+
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete)
+      router.events.off("routeChangeError", handleComplete)
+    }
+  }, [router])
 
   // fn to handle login with email
   const handleLoginWithEmail = async () => {
@@ -49,8 +61,6 @@ const Login = (props: Props) => {
       return
     }
 
-    // set the email state
-    setEmail(emailInput)
     // clear the user message
     setUserMsg(null)
     // redirect to the home page
@@ -65,12 +75,10 @@ const Login = (props: Props) => {
 
         // if the DID token is returned, redirect to the home page
         if (didToken) {
-          setIsLoading(false)
           router.push("/")
         }
       } catch (error) {
         console.log("error", error)
-        setIsLoading(false)
       }
     }
   }
