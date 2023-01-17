@@ -19,7 +19,7 @@ export default function Home({ disney, popular }: HomeProps) {
         <title>Netflix Clone</title>
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
-      <Navbar username="Curtis" />
+      <Navbar />
       <Banner
         title="Breaking Bad"
         subTitle="A Netflix Original Series"

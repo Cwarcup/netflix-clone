@@ -65,3 +65,21 @@ So we need to fetch the data on the server side, and then send it to the client.
 The user can sign in with their email. We use [Magic](https://magic.link/) to send a magic link to the user's email. The user can then click the link to sign in.
 
 Instead of storing passwords, we use Magic to generate a public and private key on the client side. Therefore, users own their data, and we don't have to store passwords. Magic then generates a [DID (Decentralized Identifier)](https://magic.link/docs/auth/introduction/decentralized-id) for the user, which is a unique identifier for the user. We can then use this DID to identify the user.
+
+
+```
+useEffect(() => {
+  async function getUsername() {
+    try {
+      const { email } = await magic.user.getMetadata();
+      if (email) {
+        console.log(email);
+        setUsername(email);
+      }
+    } catch (error) {
+      console.log("Error retrieving email:", error);
+    }
+  }
+  getUsername();
+}, []);
+```

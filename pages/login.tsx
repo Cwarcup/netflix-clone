@@ -101,6 +101,7 @@ const Login = (props: Props) => {
                 alt="Netflix logo"
                 width={128}
                 height={34}
+                priority
               />
             </div>
           </Link>

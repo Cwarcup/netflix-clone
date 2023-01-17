@@ -1,22 +1,54 @@
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri"
+import { magicClient } from "@/lib/magicClient"
 
 import styles from "./Navbar.module.css"
-type Props = {
-  username: string
-}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
+  const router = useRouter()
+
   // state to handle dropdown menu
   const [isOpen, setIsOpen] = useState(false)
+
+  const [username, setUsername] = useState<string | null>(null)
 
   const handleShowDropdown = () => {
     setIsOpen(!isOpen)
   }
 
-  const { username } = props
+  useEffect(() => {
+    const getMagicUsername = async () => {
+      try {
+        const { email } = (await magicClient?.user.getMetadata()) as {
+          email: string
+        }
+
+        setUsername(email)
+      } catch (error) {
+        console.log("Error retrieving email", error)
+      }
+    }
+
+    getMagicUsername()
+  }, [])
+
+  const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+
+    try {
+      // attempt to log out the user
+      await magicClient?.user.logout()
+      setUsername(null)
+      router.push("/login")
+    } catch (error) {
+      console.log("Error logging out", error)
+      router.push("/login")
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -42,7 +74,9 @@ const Navbar = (props: Props) => {
         <nav className={styles.navContainer}>
           <div>
             <button onClick={handleShowDropdown} className={styles.usernameBtn}>
-              <p className={styles.username}>{username}</p>
+              <p className={styles.username}>
+                {username ? username : <Link href="/login">Sign In</Link>}
+              </p>
               {isOpen ? (
                 <RiArrowDropUpLine
                   size={24}
@@ -60,9 +94,12 @@ const Navbar = (props: Props) => {
             {isOpen ? (
               <div className={styles.navDropdown}>
                 <div>
-                  <Link href="/login" className={styles.linkName}>
+                  <a
+                    className={styles.linkName}
+                    onClick={(e) => handleLogout(e)}
+                  >
                     Sign Out
-                  </Link>
+                  </a>
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>
