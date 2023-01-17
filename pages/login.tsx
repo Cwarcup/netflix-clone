@@ -1,10 +1,10 @@
+import { useState, useRef } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
-
-import { useState, useRef } from "react"
 import { isValidEmail } from "@/lib/isValidEmail"
+import { magicClient } from "@/lib/magicClient"
 
 import styles from "@/styles/Login.module.css"
 
@@ -27,31 +27,39 @@ const Login = (props: Props) => {
   }
 
   // fn to handle login with email
-  const handleLoginWithEmail = () => {
+  const handleLoginWithEmail = async () => {
     console.log("button clicked")
     // get the value from the email input
-    const email = emailInputRef.current?.value || null
+    const emailInput = emailInputRef.current?.value || null
     // need to check if the email is valid
     // if not, show an error message
 
-    if (!email) {
+    if (!emailInput) {
       setUserMsg("Please enter an email address")
       return
     }
 
-    if (!isValidEmail(email)) {
-      console.log(isValidEmail(email))
+    if (!isValidEmail(emailInput)) {
       setUserMsg("Please enter a valid email address")
       return
     }
 
     // set the email state
-    setEmail(email)
+    setEmail(emailInput)
     // clear the user message
     setUserMsg(null)
     // redirect to the home page
-    if (email === "test@test.com") {
-      router.push("/")
+    if (emailInput === "curtis.gwarcup@gmail.com") {
+      console.log("emailInput", emailInput)
+      // router.push("/")
+      try {
+        const didToken = await magicClient?.auth.loginWithMagicLink({
+          email: emailInput,
+        })
+        console.log("didToken", didToken)
+      } catch (error) {
+        console.log("error", error)
+      }
     }
   }
 

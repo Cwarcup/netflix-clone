@@ -12,11 +12,7 @@ type HomeProps = {
   popular: CardType[]
 }
 
-export default function Home({
-  disney,
-
-  popular,
-}: HomeProps) {
+export default function Home({ disney, popular }: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
