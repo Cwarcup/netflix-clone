@@ -41,8 +41,8 @@ const Navbar = () => {
     try {
       // attempt to log out the user
       await magicClient?.user.logout()
-      setUsername(null)
-      router.push("/login")
+      const isLoggedIn = await magicClient?.user.isLoggedIn()
+      console.log("Is logged in?", isLoggedIn)
     } catch (error) {
       console.log("Error logging out", error)
       router.push("/login")
