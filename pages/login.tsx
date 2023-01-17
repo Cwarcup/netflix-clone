@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 import { useState, useRef } from "react"
 import { isValidEmail } from "@/lib/isValidEmail"
@@ -10,6 +11,8 @@ import styles from "@/styles/Login.module.css"
 type Props = {}
 
 const Login = (props: Props) => {
+  const router = useRouter()
+
   // create a ref for the email input
   const emailInputRef = useRef<HTMLInputElement>(null)
 
@@ -46,6 +49,10 @@ const Login = (props: Props) => {
     setEmail(email)
     // clear the user message
     setUserMsg(null)
+    // redirect to the home page
+    if (email === "test@test.com") {
+      router.push("/")
+    }
   }
 
   console.log("email", email)
