@@ -74,8 +74,13 @@ One struggle was displaying a gradient over the `iframe` YouTube element. Becaus
 
 ## Fetching Data
 
-As we know, Next.js provides multiple methods for fetching data. We can use [`getStaticProps` ](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)to fetch data at build time (SSG), or [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) to fetch data at request time. We can also use [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props) to fetch data on the client side.
+As we know, Next.js provides multiple methods for fetching data. We can use [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) to fetch data at build time (SSG), or [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) to fetch data at request time. We can also use [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props) to fetch data on the client side.
 
 For the banner component, I decided to use static site generation (SSG). The banner component is the same for every user, so it makes sense to fetch the data at build time.
 
 For the specific video page ('/video/:id'), I decided to use incremental site regeneration using `getStaticProps` with the `revalidate` option. This means that the page will be regenerated at a specific time interval.
+
+In order to get the best performance on our dynamic pages (e.g. '/video/:id'), we need to check if we have cached the data. If we have, we can use the cached data. If we don't have the data, we can fetch the data from the server. This is called [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration).
+
+<!-- MAYBE -->
+We can also leverage [`stale-while-revalidate`](https://swr.vercel.app/docs/with-nextjs) to fetch the data from the server, and then cache the data. This means that the user will see the cached data, and then the data will be updated in the background. This is a great way to improve performance.

@@ -1,0 +1,91 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "Ug1qMvHwa5UHIyJt6jMIZ49cBFA",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "luqgfBfekdm-6InqrdLQvDW3OUI",
+      "id": "Znsa4Deavgg",
+      "snippet": {
+        "publishedAt": "2023-01-17T02:44:15Z",
+        "channelId": "UCZGYJFUizSax-yElQaFDp5Q",
+        "title": "The Mandalorian | Season 3 Official Trailer | Disney+",
+        "description": "Reunited.\n\nThe Mandalorian, Season 3 March 1 on Disney+.\nThe journeys of the Mandalorian through the Star Wars galaxy continue. Once a lone bounty hunter, Din Djarin has reunited with Grogu. Meanwhile, the New Republic struggles to lead the galaxy away from its dark history. The Mandalorian will cross paths with old allies and make new enemies as he and Grogu continue their journey together.\n\nThe series stars Pedro Pascal, Katee Sackhoff, Carl Weathers, Amy Sedaris, Emily Swallow and Giancarlo Esposito.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Znsa4Deavgg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Znsa4Deavgg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Znsa4Deavgg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Znsa4Deavgg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Znsa4Deavgg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Star Wars",
+        "tags": [
+          "The Mandalorian",
+          "Mandalorian",
+          "Grogu",
+          "Baby Yoda",
+          "Star Wars",
+          "Mando",
+          "Pedro Pascal",
+          "Dave Filoni",
+          "Jon Favreau",
+          "Carl Weathers",
+          "Giancarlo Esposito",
+          "Din Djarin",
+          "Greef Karga",
+          "Moff Gideon",
+          "Katee Sackhoff",
+          "Bo-Katan Kryze",
+          "Emily Swallow",
+          "The Armorer"
+        ],
+        "categoryId": "24",
+        "liveBroadcastContent": "none",
+        "localized": {
+          "title": "The Mandalorian | Season 3 Official Trailer | Disney+",
+          "description": "Reunited.\n\nThe Mandalorian, Season 3 March 1 on Disney+.\nThe journeys of the Mandalorian through the Star Wars galaxy continue. Once a lone bounty hunter, Din Djarin has reunited with Grogu. Meanwhile, the New Republic struggles to lead the galaxy away from its dark history. The Mandalorian will cross paths with old allies and make new enemies as he and Grogu continue their journey together.\n\nThe series stars Pedro Pascal, Katee Sackhoff, Carl Weathers, Amy Sedaris, Emily Swallow and Giancarlo Esposito."
+        },
+        "defaultAudioLanguage": "en-US"
+      },
+      "contentDetails": {
+        "duration": "PT1M43S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "true",
+        "licensedContent": true,
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "statistics": {
+        "viewCount": "5085862",
+        "likeCount": "116373",
+        "favoriteCount": "0",
+        "commentCount": "5390"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
