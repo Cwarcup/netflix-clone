@@ -31,7 +31,6 @@
 /** Makes video edges curvy **/
 .videoPlayer {
   border-radius: 6px 6px 0px 0px;
-
   border: 0px;
 }
 
@@ -59,6 +58,7 @@
   column-gap: 2em;
 }
 
+/* left col, publish time, title, description */
 .col1 {
   max-height: 50vh /* 208px */;
   overflow-y: hidden;
@@ -70,7 +70,7 @@
   line-height: 1.75rem /* 28px */;
   margin-top: 1.5rem /* 24px */;
   margin-bottom: 0.5rem /* 8px */;
-  color: var(--green10);
+  color: var(--white10);
 }
 
 .text {
@@ -84,11 +84,17 @@
   margin-top: 0.75rem /* 12px */;
 }
 
+/* right col, displays stats*/
 .col2 {
   color: var(--white10);
   line-height: 1.75rem /* 28px */;
   display: flex;
   flex-direction: column;
+}
+
+.titleText {
+  font-size: 1.25rem; /* 20px */
+  overflow-wrap: break-word;
 }
 
 .subText {

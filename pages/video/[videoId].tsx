@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Modal from "react-modal"
+import clsx from "classnames"
 
 import styles from "@/styles/VideoModal.module.css"
 
@@ -10,11 +11,9 @@ Modal.setAppElement("#__next")
 type Props = {}
 
 const VideoForId = (props: Props) => {
-  const [videoIsPlaying, setVideoIsPlaying] = useState(false)
-
   const router = useRouter()
-
   const { videoId } = router.query // unique id for each video
+  const [videoIsPlaying, setVideoIsPlaying] = useState(false)
 
   const handleModalClose = () => {
     router.back()
@@ -25,7 +24,7 @@ const VideoForId = (props: Props) => {
     // remove the gradient
     const gradient = document.getElementById("video-gradient")
     gradient?.classList.add(styles.videoGradientHide)
-    
+
     if (player) {
       if (videoIsPlaying) {
         player.setAttribute(
@@ -42,6 +41,20 @@ const VideoForId = (props: Props) => {
 
     setVideoIsPlaying(!videoIsPlaying)
   }
+
+  const testVideo = {
+    title: "test title",
+    publishTime: "test publish time",
+    description: "test description",
+    channelTitle: "test channel title",
+    statistics: {
+      viewCount: 1000,
+      likeCount: 100,
+    },
+  }
+
+  const { title, publishTime, description, channelTitle, statistics } =
+    testVideo
 
   return (
     <>
@@ -65,10 +78,35 @@ const VideoForId = (props: Props) => {
           <div
             id="video-gradient"
             className={styles.videoGradient}
-            // onclick, play the video
             onClick={handleVideoPlayPause}
           ></div>
-          {/* div to add gray gradient from the bottom of the video up */}
+        </div>
+        <div className={styles.modalBody}>
+          <div className={styles.modalBodyContent}>
+            <div className={styles.col1}>
+              <p className={styles.publishTime}>{publishTime}</p>
+              <p className={styles.titleText}>{title}</p>
+              <p className={styles.description}>{description}</p>
+            </div>
+            <div className={styles.col2}>
+              {/* genes */}
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>Genes: </span>
+                <span className={styles.channelTitle}>test genes</span>
+              </p>
+
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>Cast: </span>
+                <span className={styles.channelTitle}>{channelTitle}</span>
+              </p>
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>View Count: </span>
+                <span className={styles.channelTitle}>
+                  {statistics.viewCount}
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
       </Modal>
     </>
