@@ -13,22 +13,20 @@ const roboto = Roboto({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false) // set to false to work on dynamic routes
 
-  useEffect(() => {
-    const getMagicUsername = async () => {
-      const isLoggedIn = await magicClient?.user.isLoggedIn()
-
-      if (!isLoggedIn) {
-        router.push("/login")
-        return
-      }
-
-      router.push("/")
-    }
-
-    getMagicUsername()
-  }, [])
+  // comment out to work on dynamic routes
+  // useEffect(() => {
+  //   const getMagicUsername = async () => {
+  //     const isLoggedIn = await magicClient?.user.isLoggedIn()
+  //     if (!isLoggedIn) {
+  //       router.push("/login")
+  //       return
+  //     }
+  //     router.push("/")
+  //   }
+  //   getMagicUsername()
+  // }, [])
 
   useEffect(() => {
     const handleComplete = () => {
