@@ -17,7 +17,7 @@ const CardSection = (props: CardSectionProps) => {
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.cardWrapper}>
         {videos.map((video) => (
-          <Link href={`/videos/${video.id}`} key={video.id}>
+          <Link href={`/video/${video.id}`} key={video.id}>
             <Card {...video} size={size} />
           </Link>
         ))}

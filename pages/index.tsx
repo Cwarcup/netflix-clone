@@ -24,6 +24,7 @@ export default function Home({ disney, popular }: HomeProps) {
         title="Breaking Bad"
         subTitle="A Netflix Original Series"
         imgUrl="/static/breaking_bad_banner.jpeg"
+        videoId="2"
       />
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />
@@ -35,7 +36,6 @@ export default function Home({ disney, popular }: HomeProps) {
 
 export async function getServerSideProps() {
   const disney = await getVideos("Disney Trailers")
-
   const popular = await getPopularVideos()
 
   return {
