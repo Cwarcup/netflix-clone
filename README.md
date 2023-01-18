@@ -69,3 +69,13 @@ Instead of storing passwords, we use Magic to generate a public and private key 
 ## Playing Videos
 
 Used the [YouTube Player API](https://developers.google.com/youtube/iframe_api_reference) to embed videos within an iframe. The YouTube Player API allows us to control the video, such as play, pause, seek, etc.
+
+One struggle was displaying a gradient over the `iframe` YouTube element. Because the gradient sits on top of the video, the native play and pause buttons could not be clicked. To get around this, I updated the player attribute to autoplay when the user clicks the video. This also causes the gradient to be hidden, so the user can click the native play and pause buttons. I don't love this solution, but it works for now.
+
+## Fetching Data
+
+As we know, Next.js provides multiple methods for fetching data. We can use [`getStaticProps` ](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)to fetch data at build time (SSG), or [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) to fetch data at request time. We can also use [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props) to fetch data on the client side.
+
+For the banner component, I decided to use static site generation (SSG). The banner component is the same for every user, so it makes sense to fetch the data at build time.
+
+For the specific video page ('/video/:id'), I decided to use incremental site regeneration using `getStaticProps` with the `revalidate` option. This means that the page will be regenerated at a specific time interval.

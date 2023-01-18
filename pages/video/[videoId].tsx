@@ -89,7 +89,6 @@ const VideoForId = (props: Props) => {
               <p className={styles.description}>{description}</p>
             </div>
             <div className={styles.col2}>
-              {/* genes */}
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>Genes: </span>
                 <span className={styles.channelTitle}>test genes</span>
