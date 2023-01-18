@@ -66,4 +66,6 @@ The user can sign in with their email. We use [Magic](https://magic.link/) to se
 
 Instead of storing passwords, we use Magic to generate a public and private key on the client side. Therefore, users own their data, and we don't have to store passwords. Magic then generates a [DID (Decentralized Identifier)](https://magic.link/docs/auth/introduction/decentralized-id) for the user, which is a unique identifier for the user. We can then use this DID to identify the user.
 
-To check if a user is logged in during the initial load, I  `useEffect` hook 
+## Playing Videos
+
+Used the [YouTube Player API](https://developers.google.com/youtube/iframe_api_reference) to embed videos within an iframe. The YouTube Player API allows us to control the video, such as play, pause, seek, etc.
