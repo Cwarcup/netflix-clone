@@ -49,7 +49,7 @@ const Card = (props: CardProps) => {
           src={imgUrl}
           alt="Picture of the author"
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="640px"
           className={styles.cardImg}
           onError={handleOnError}
         />

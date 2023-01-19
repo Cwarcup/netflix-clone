@@ -28,7 +28,7 @@ export default function Home({ disney, popular }: HomeProps) {
       />
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />
-        <CardSection title="Disney" size="large" videos={disney} />
+        <CardSection title="Disney" size="small" videos={disney} />
       </div>
     </div>
   )

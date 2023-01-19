@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import Modal from "react-modal"
 import clsx from "classnames"
+import Navbar from "@/components/Navbar/Navbar"
 import { getYoutubeVideoById } from "@/lib/getYoutubeVideos"
 
 import styles from "@/styles/VideoModal.module.css"
@@ -56,6 +57,7 @@ const VideoForId = ({ video }: Props) => {
 
   return (
     <>
+      <Navbar />
       <Modal
         isOpen={true}
         contentLabel="Watch Video"
@@ -99,7 +101,9 @@ const VideoForId = ({ video }: Props) => {
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>View Count: </span>
                 <span className={styles.channelTitle}>
-                  {statistics.viewCount}
+                  {statistics.viewCount
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </span>
               </p>
             </div>
@@ -111,8 +115,10 @@ const VideoForId = ({ video }: Props) => {
 }
 
 export async function getStaticProps(context: any) {
+  // get the videoId from the context
   const videoId: string = context.params.videoId
 
+  // get the video from the youtube api
   const videoArray = await getYoutubeVideoById(videoId)
 
   // and revalidate every 10 seconds.

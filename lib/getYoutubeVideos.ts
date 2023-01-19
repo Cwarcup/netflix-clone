@@ -1,36 +1,43 @@
 import type { CardType, YoutubeResponse, Item, GetVideoByIdType } from "@/types"
+import hardCodedVideos from "@/data/youtubeData.json"
 
 // function to fetch youtube videos from youtube api
-// accepts a search term as a parameter
-// used in index.tsx on server side rendering
-
 function convertDateString(dateString: Date): string {
   let date = new Date(dateString)
   let options = { year: "numeric", month: "long", day: "numeric" } as any
   return date.toLocaleDateString("en-US", options)
 }
 
+const fetchVideos = async (url: string) => {
+  const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
+  const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
+
+  const response = await fetch(fetchUrl, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+
+  return (await response.json()) as YoutubeResponse
+}
 const getCommonVideos = async (url: string): Promise<CardType[]> => {
   try {
-    const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
-    const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
-
-    const response = await fetch(fetchUrl, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-
-    const data = (await response.json()) as YoutubeResponse
+    const isDev = process.env.DEVELOPMENT === "true"
+    const data = isDev ? hardCodedVideos : await fetchVideos(url)
 
     // mutate the data to match the CardType interface
     const YoutubeMutatedData: CardType[] = data.items.map((item: any) => {
+      const imgUrl =
+        item.snippet.thumbnails?.maxres?.url ??
+        item.snippet.thumbnails?.standard?.url ??
+        item.snippet.thumbnails?.high.url
+
       return {
         id: item.id.videoId || item.id,
         title: item.snippet.title,
         description: item.snippet.description,
-        imgUrl: item.snippet.thumbnails.high.url,
+        imgUrl: item.snippet.thumbnails?.high.url,
         publishedAt: item.snippet.publishedAt,
       } as CardType
     })
@@ -67,19 +74,7 @@ export const getYoutubeVideoById = async (
   const url = `videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}`
 
   try {
-    const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
-    const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
-    console.log(fetchUrl)
-    const response = await fetch(fetchUrl, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-
-    const data = (await response.json()) as YoutubeResponse
-
-    console.log(data.items)
+    const data = await fetchVideos(url)
 
     // mutate the data to match the CardType interface
     const YoutubeMutatedData: GetVideoByIdType[] = data.items.map(
@@ -91,7 +86,7 @@ export const getYoutubeVideoById = async (
           channelTitle: item.snippet.channelTitle,
           publishedAt: convertDateString(item.snippet.publishedAt),
           statistics: {
-            viewCount: item.statistics.viewCount,
+            viewCount: item.statistics.viewCount || "0",
           },
         }
       }
