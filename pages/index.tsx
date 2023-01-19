@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar/Navbar"
 import CardSection from "@/components/CardSection/CardSection"
 import { getVideos, getPopularVideos } from "@/lib/getYoutubeVideos"
 
+import { fetchMyQuery } from "@/lib/db/hasura"
+
 import type { CardType } from "@/types"
 
 type HomeProps = {
@@ -13,6 +15,7 @@ type HomeProps = {
 }
 
 export default function Home({ disney, popular }: HomeProps) {
+  fetchMyQuery()
   return (
     <div className={styles.container}>
       <Head>

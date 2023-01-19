@@ -27,8 +27,11 @@
 
 ## Tech Stack
 
+- [Typescript](https://www.typescriptlang.org/)
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
+- [Hasura](https://hasura.io/)
+- [Supabase](https://supabase.io/)
 - [GraphQL](https://graphql.org/)
 - [Magic](https://magic.link/)
 
@@ -82,7 +85,26 @@ For the specific video page ('/video/:id'), I decided to use incremental site re
 
 In order to get the best performance on our dynamic pages (e.g. '/video/:id'), we need to check if we have cached the data. If we have, we can use the cached data. If we don't have the data, we can fetch the data from the server. This is called [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration).
 
-## GraphQL
+## GraphQL and Database
 
 I used Hasura to create a GraphQL API. Hasura is a GraphQL engine that connects to a Postgres database. Hasura provides a GraphQL API that we can use to query the database. Hasura also provides a GUI to create tables, and to query the database.
 
+For my database, I used a Postgres database hosted by [Supabase](https://supabase.io/). Supabase is an open source Firebase alternative. It provides a Postgres database, and a GUI to create tables, and to query the database.
+
+### Architecture
+
+|          | Users           |                   |                  |         |
+| -------- | --------------- | ----------------- | ---------------- | ------- |
+|          | **issuer (PK)** | **publicAddress** | **email**        | **id**  |
+| **type** | **text**        | **text**          | **text**         | **int** |
+|          | cwarcup         | 0x1234            | info@cwarcup.com | 1       |
+
+I used the Decentralized ID from Magic to identify the user and is the primary key for the users table. The [`getMetadata`](https://magic.link/docs/auth/api-reference/client-side-sdks/web#getmetadata) method returns an object with the user's public address, email, and DID.
+
+|          | Stats       |                 |             |                 |             |
+| -------- | ----------- | --------------- | ----------- | --------------- | ----------- |
+|          | **id (PK)** | **userId (FK)** | **videoId** | **favourited**  | **watched** |
+| **type** | **int**     | **text**        | **text**    | **int or Null** | **boolean** |
+|          | 17          | cwarcup         | video_123   | null            | true        |
+
+The stats table stores information about the user's interactions with a video. 
