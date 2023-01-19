@@ -27,6 +27,7 @@ const VideoForId = ({ video }: Props) => {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false)
 
   const { title, publishedAt, description, channelTitle, statistics } = video
+
   const handleModalClose = () => {
     router.back()
   }
@@ -55,7 +56,6 @@ const VideoForId = ({ video }: Props) => {
 
   return (
     <>
-      <div>hello video page: {videoId}</div>
       <Modal
         isOpen={true}
         contentLabel="Watch Video"
@@ -81,19 +81,20 @@ const VideoForId = ({ video }: Props) => {
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>
             <div className={styles.col1}>
-              <p className={styles.publishedAt}>{publishedAt}</p>
               <p className={styles.titleText}>{title}</p>
-              <p className={styles.description}>{description}</p>
+              <p
+                className={styles.description}
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </div>
             <div className={styles.col2}>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
-                <span className={styles.textColor}>Genes: </span>
-                <span className={styles.channelTitle}>test genes</span>
-              </p>
-
-              <p className={clsx(styles.subText, styles.subTextWrapper)}>
-                <span className={styles.textColor}>Cast: </span>
+                <span className={styles.textColor}>By: </span>
                 <span className={styles.channelTitle}>{channelTitle}</span>
+              </p>
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>Released: </span>
+                <span className={styles.channelTitle}>{publishedAt}</span>
               </p>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>View Count: </span>
@@ -132,9 +133,6 @@ export async function getStaticPaths() {
     params: { videoId: id },
   }))
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
   return { paths, fallback: "blocking" }
 }
 

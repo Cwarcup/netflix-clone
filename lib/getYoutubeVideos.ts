@@ -4,6 +4,12 @@ import type { CardType, YoutubeResponse, Item, GetVideoByIdType } from "@/types"
 // accepts a search term as a parameter
 // used in index.tsx on server side rendering
 
+function convertDateString(dateString: Date): string {
+  let date = new Date(dateString)
+  let options = { year: "numeric", month: "long", day: "numeric" } as any
+  return date.toLocaleDateString("en-US", options)
+}
+
 const getCommonVideos = async (url: string): Promise<CardType[]> => {
   try {
     const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
@@ -63,7 +69,7 @@ export const getYoutubeVideoById = async (
   try {
     const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
     const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
-
+    console.log(fetchUrl)
     const response = await fetch(fetchUrl, {
       method: "GET",
       headers: {
@@ -73,22 +79,24 @@ export const getYoutubeVideoById = async (
 
     const data = (await response.json()) as YoutubeResponse
 
+    console.log(data.items)
+
     // mutate the data to match the CardType interface
     const YoutubeMutatedData: GetVideoByIdType[] = data.items.map(
       (item: Item) => {
         return {
           id: item.id,
           title: item.snippet.title,
-          description: item.snippet.description,
+          description: item.snippet.description.replace(/\n/g, "<br>"),
           channelTitle: item.snippet.channelTitle,
-          publishedAt: item.snippet.publishedAt,
+          publishedAt: convertDateString(item.snippet.publishedAt),
           statistics: {
             viewCount: item.statistics.viewCount,
           },
         }
       }
     )
-    console.log(YoutubeMutatedData)
+
     return YoutubeMutatedData
   } catch (error) {
     console.log(error)
@@ -99,7 +107,7 @@ export const getYoutubeVideoById = async (
         title: "Something went wrong fetching Youtube videos",
         description: "Something went wrong fetching Youtube videos",
         channelTitle: "Something went wrong fetching Youtube videos",
-        publishedAt: new Date(),
+        publishedAt: convertDateString(new Date()),
         statistics: {
           viewCount: "0",
         },

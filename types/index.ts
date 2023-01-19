@@ -17,7 +17,7 @@ export type GetVideoByIdType = {
   title: string
   description: string
   channelTitle: string
-  publishedAt: Date
+  publishedAt: string
   statistics: {
     viewCount: string
   }
@@ -58,7 +58,6 @@ export interface Snippet {
   description: string
   thumbnails: Thumbnails
   channelTitle: string
-  tags: string[]
   categoryId: string
   liveBroadcastContent: string
   localized: Localized
@@ -75,7 +74,6 @@ export interface Thumbnails {
   medium: Default
   high: Default
   standard: Default
-  maxres: Default
 }
 
 export interface Default {

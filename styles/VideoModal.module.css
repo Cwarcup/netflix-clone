@@ -49,7 +49,7 @@
 
 /** Modal body **/
 .modalBody {
-  padding: 0 3rem;
+  padding: 0 1.75rem;
 }
 
 .modalBodyContent {
@@ -82,6 +82,10 @@
 .description {
   margin-bottom: 0.5rem /* 8px */;
   margin-top: 0.75rem /* 12px */;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+
+  overflow-wrap: break-word;
 }
 
 /* right col, displays stats*/
