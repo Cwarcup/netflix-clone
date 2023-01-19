@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { useState } from "react"
 import styles from "./Card.module.css"
-import clx from "classnames"
+import clsx from "classnames"
 import { motion } from "framer-motion"
 import type { CardSize } from "@/types"
 
@@ -42,16 +42,15 @@ const Card = (props: CardProps) => {
   return (
     <div className={styles.container}>
       <motion.div
-        className={clx(styles.imgMotionWrapper, imgSizes[size])}
+        className={clsx(styles.imgMotionWrapper, imgSizes[size])}
         {...shouldHover}
       >
         <Image
           src={imgUrl}
           alt="Picture of the author"
-          fill
-          sizes="640px"
           className={styles.cardImg}
           onError={handleOnError}
+          fill
         />
       </motion.div>
     </div>

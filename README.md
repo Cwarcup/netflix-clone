@@ -82,5 +82,7 @@ For the specific video page ('/video/:id'), I decided to use incremental site re
 
 In order to get the best performance on our dynamic pages (e.g. '/video/:id'), we need to check if we have cached the data. If we have, we can use the cached data. If we don't have the data, we can fetch the data from the server. This is called [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration).
 
-<!-- MAYBE -->
-We can also leverage [`stale-while-revalidate`](https://swr.vercel.app/docs/with-nextjs) to fetch the data from the server, and then cache the data. This means that the user will see the cached data, and then the data will be updated in the background. This is a great way to improve performance.
+## GraphQL
+
+I used Hasura to create a GraphQL API. Hasura is a GraphQL engine that connects to a Postgres database. Hasura provides a GraphQL API that we can use to query the database. Hasura also provides a GUI to create tables, and to query the database.
+

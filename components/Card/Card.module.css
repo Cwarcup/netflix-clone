@@ -1,6 +1,7 @@
 .imgMotionWrapper {
   position: relative;
   display: inline-block;
+  overflow: hidden;
 }
 
 .imgMotionWrapper:hover {
@@ -30,22 +31,19 @@
   height: 434px;
   min-height: 434px;
 }
-.container {
-  margin-right: 0.25rem /* 4px */;
-  cursor: pointer;
-}
 
 .cardImg {
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: 0px;
-
   border-radius: 0.2vw;
   object-fit: cover;
-
   object-position: center;
   display: block;
-
   max-width: 100%;
+}
+.container {
+  margin-right: 0.25rem /* 4px */;
+  cursor: pointer;
 }

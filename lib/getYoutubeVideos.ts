@@ -1,13 +1,14 @@
 import type { CardType, YoutubeResponse, Item, GetVideoByIdType } from "@/types"
 import hardCodedVideos from "@/data/youtubeData.json"
 
-// function to fetch youtube videos from youtube api
+// used to convert the date string to a more readable format
 function convertDateString(dateString: Date): string {
   let date = new Date(dateString)
   let options = { year: "numeric", month: "long", day: "numeric" } as any
   return date.toLocaleDateString("en-US", options)
 }
 
+// function to fetch youtube videos from youtube api
 const fetchVideos = async (url: string) => {
   const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
   const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
@@ -21,8 +22,10 @@ const fetchVideos = async (url: string) => {
 
   return (await response.json()) as YoutubeResponse
 }
+
 const getCommonVideos = async (url: string): Promise<CardType[]> => {
   try {
+    // conditional to use the hard coded data when in development
     const isDev = process.env.DEVELOPMENT === "true"
     const data = isDev ? hardCodedVideos : await fetchVideos(url)
 
@@ -37,7 +40,7 @@ const getCommonVideos = async (url: string): Promise<CardType[]> => {
         id: item.id.videoId || item.id,
         title: item.snippet.title,
         description: item.snippet.description,
-        imgUrl: item.snippet.thumbnails?.high.url,
+        imgUrl: imgUrl,
         publishedAt: item.snippet.publishedAt,
       } as CardType
     })
