@@ -1,4 +1,8 @@
-export async function fetchGraphQL(
+// operationsDoc is the GraphQL query or mutation
+// operationName is the name of the query or mutation
+// variables are the variables used in the query or mutation, is an object, can be empty
+
+export async function queryGraphQL(
   operationsDoc: string,
   operationName: string,
   variables: any
@@ -19,32 +23,3 @@ export async function fetchGraphQL(
 
   return await result.json()
 }
-
-const operationsDoc = `
-  query MyQuery {
-    Users {
-      email
-      id
-      issuer
-      publicAddress
-    }
-  }
-`
-
-export function fetchMyQuery() {
-  return fetchGraphQL(operationsDoc, "MyQuery", {})
-}
-
-export async function startFetchMyQuery() {
-  const { errors, data } = await fetchMyQuery()
-
-  if (errors) {
-    // handle those errors like a pro
-    console.error(errors)
-  }
-
-  // do something great with this precious data
-  console.log(data)
-}
-
-startFetchMyQuery()

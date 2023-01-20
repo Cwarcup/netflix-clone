@@ -87,7 +87,7 @@ In order to get the best performance on our dynamic pages (e.g. '/video/:id'), w
 
 ## GraphQL and Database
 
-I used Hasura to create a GraphQL API. Hasura is a GraphQL engine that connects to a Postgres database. Hasura provides a GraphQL API that we can use to query the database. Hasura also provides a GUI to create tables, and to query the database.
+I used [Hasura](https://hasura.io/docs/latest/databases/connect-db/index/) to create a GraphQL API. Hasura is a GraphQL engine that connects to a Postgres database. Hasura provides a GraphQL API that we can use to query the database. Hasura also provides a GUI to create tables, and to query the database.
 
 For my database, I used a Postgres database hosted by [Supabase](https://supabase.io/). Supabase is an open source Firebase alternative. It provides a Postgres database, and a GUI to create tables, and to query the database.
 
@@ -108,3 +108,9 @@ I used the Decentralized ID from Magic to identify the user and is the primary k
 |          | 17          | cwarcup         | video_123   | null            | true        |
 
 The stats table stores information about the user's interactions with a video. 
+
+I created a `user` role to ensure that only that user has access to their data. I used a [JSON Web Token (JWT)](https://jwt.io/introduction) token to [authenticate the user](https://hasura.io/docs/latest/auth/authentication/index/#2-jwt-json-web-token).
+
+## Authentication
+
+Created an [API route](https://nextjs.org/docs/api-routes/introduction) (`/api/auth`) to handle authentication. The API route uses the [Magic SDK](https://magic.link/docs/sdk-for-web) to authenticate the user. The API route returns a [JWT token](https://jwt.io/introduction) to the client. The client then stores the JWT token in a [cookie](https://github.com/jshttp/cookie#readme).
