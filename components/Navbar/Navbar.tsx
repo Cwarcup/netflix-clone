@@ -22,9 +22,18 @@ const Navbar = () => {
   useEffect(() => {
     const getMagicUsername = async () => {
       try {
-        const { email } = (await magicClient?.user.getMetadata()) as {
-          email: string
-        }
+        const { email, issuer, publicAddress } =
+          (await magicClient?.user.getMetadata()) as {
+            email: string
+            issuer: string
+            publicAddress: string
+          }
+        // console.log({ issuer })
+        // console.log({ publicAddress })
+        // console.log({ email })
+
+        const didToken = await magicClient?.user.getIdToken()
+        // console.log("didToken", didToken)
 
         setUsername(email)
       } catch (error) {

@@ -113,4 +113,37 @@ I created a `user` role to ensure that only that user has access to their data. 
 
 ## Authentication
 
-Created an [API route](https://nextjs.org/docs/api-routes/introduction) (`/api/auth`) to handle authentication. The API route uses the [Magic SDK](https://magic.link/docs/sdk-for-web) to authenticate the user. The API route returns a [JWT token](https://jwt.io/introduction) to the client. The client then stores the JWT token in a [cookie](https://github.com/jshttp/cookie#readme).
+Created an [API route](https://nextjs.org/docs/api-routes/introduction) (`/api/auth`) to handle authentication. The API route uses the [Magic Admin SDK](https://magic.link/docs/auth/login-methods/email/integration/server-side/node) NodeJS implementation to authenticate the user. The API route returns a [JWT token](https://jwt.io/introduction) to the client. The client then stores the JWT token in a [cookie](https://github.com/jshttp/cookie#readme).
+
+Created an API route to handle authentication (`/api/auth`). The API route uses the [Magic SDK](https://magic.link/docs/sdk-for-web) to authenticate the user. The API route returns a [JWT token](https://jwt.io/introduction) to the client. The client then stores the JWT token in a [cookie](
+
+### Authentication Flow
+
+The JWT token contains information about the user, such as their email, public address, and DID. When a user logs in, a new JWT token is generated, GraphQL queries Hasura to see if the user exists in the database. If the user exists, user is logged in and the JWT token is stored in a cookie. If the user *doesn't* exist, GraphQL mutation occurs to create a new user in the database. The user is then logged in and the JWT token is stored in a cookie.
+
+```js
+// JWT token
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+   "exp": 1516239022,
+   "did:ethr": "0x3453245345",
+   "email": "cwarcup@gmail.com",
+  "https://hasura.io/jwt/claims": {
+    "x-hasura-allowed-roles": ["user", "admin"],
+    "x-hasura-default-role": "user",
+    "x-hasura-user-id": "did:ethr:0x23423234234234"
+  }
+}
+
+// metadata
+{
+  "issuer": "did:ethr:0x92bc41051969ededBDC131d099D44B73D40aDC01",
+  "publicAddress": "0x92bc41051969ededBDC131d099D44B73D40aDC01",
+  "email": "curtis.gwarcup@gmail.com",
+  "oauthProvider": null,
+  "phoneNumber": null,
+  "wallets": []
+}
+```
