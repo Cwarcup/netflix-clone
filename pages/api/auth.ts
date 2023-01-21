@@ -2,35 +2,36 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
 import jwt from "jsonwebtoken"
+import { isNewUser } from "../../lib/db/hasura"
 
 type Data = {
   name?: any
-  error?: string
+  error?: any
+  isNewUserQuery?: any
 }
 
 const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === "POST") {
     try {
-      // get token and parse it
+      // get token and parse it from the headers
       const auth = req.headers.authorization as string
-      console.log("auth", auth)
-
       const didToken = auth ? auth.substring(7) : null
-      console.log("didToken", didToken)
 
       if (!didToken) {
-        res.status(401).json({ error: "Not authorized" })
+        res.status(401).json({
+          error:
+            "Not authorized or missing Authorization header with Bearer token",
+        })
         return
       }
 
-      console.log(magicAdmin)
-
+      // create jwt token, and use it to authenticate with Hasura
       const metadata = await magicAdmin?.users.getMetadataByToken(didToken)
-      console.log("metadata", metadata)
 
-      // create jwt token
       if (!metadata) {
-        res.status(401).json({ error: "Not authorized" })
+        res
+          .status(401)
+          .json({ error: "Not authorized. Unable to get metadata from token" })
         return
       }
 
@@ -48,8 +49,14 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         },
         process.env.HASURA_GRAPHQL_JWT_SECRET as string
       )
-      console.log("token", token)
-      res.status(200).json({ name: metadata })
+
+      // check to see if user exists in the db using the token
+      const isNewUserQuery = await isNewUser(token, metadata.issuer)
+
+      res.status(200).json({
+        name: token,
+        isNewUserQuery,
+      })
 
       if (!metadata) {
         res.status(401).json({ error: "Not authorized" })

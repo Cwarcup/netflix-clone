@@ -119,7 +119,9 @@ Created an API route to handle authentication (`/api/auth`). The API route uses 
 
 ### Authentication Flow
 
-The JWT token contains information about the user, such as their email, public address, and DID. When a user logs in, a new JWT token is generated, GraphQL queries Hasura to see if the user exists in the database. If the user exists, user is logged in and the JWT token is stored in a cookie. If the user *doesn't* exist, GraphQL mutation occurs to create a new user in the database. The user is then logged in and the JWT token is stored in a cookie.
+The JWT token contains information about the user, such as their email, public address, and DID. When a user logs in, a new JWT token is generated, GraphQL queries Hasura to see if the user exists in the database by using the newly created JWT token (remember, this has 3 parts).  If the user exists, user is logged in and the JWT token is stored in a cookie. If the user *doesn't* exist, GraphQL mutation occurs to create a new user in the database. The user is then logged in and the JWT token is stored in a cookie.
+
+> The database is setup to only allow a user to access their own data unless they have `X-Hasura-Role` set to `admin` and have the `x-hasura-admin-secret`. This ensures that a user can only access their own data.
 
 ```js
 // JWT token
@@ -146,4 +148,4 @@ The JWT token contains information about the user, such as their email, public a
   "phoneNumber": null,
   "wallets": []
 }
-```
+```****
