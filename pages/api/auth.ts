@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
 import jwt from "jsonwebtoken"
-import { isNewUser } from "../../lib/db/hasura"
+import { isNewUser, addUser } from "../../lib/db/hasura"
 
 type Data = {
   name?: any
@@ -53,6 +53,16 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       // check to see if user exists in the db using the token
       const isNewUserQuery = await isNewUser(token, metadata.issuer)
 
+      // if isNewUserQuery is true, then the user is new and we can add them to the db
+      if (isNewUserQuery) {
+        await addUser(
+          token,
+          metadata.issuer,
+          metadata.publicAddress,
+          metadata.email
+        )
+      }
+
       res.status(200).json({
         name: token,
         isNewUserQuery,
@@ -62,9 +72,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         res.status(401).json({ error: "Not authorized" })
         return
       }
-      res.status(200).json({ name: metadata })
     } catch (error) {
-      console.log("Something went wrong logging in", error)
       res.status(500).json({ error: "Internal Server Error" })
     }
   } else {
