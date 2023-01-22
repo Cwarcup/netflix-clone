@@ -3,11 +3,15 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
 import jwt from "jsonwebtoken"
 import { isNewUser, addUser } from "../../lib/db/hasura"
+import { setTokenCookie } from "../../lib/createCookie"
 
 type Data = {
   name?: any
   error?: any
   isNewUserQuery?: any
+  message?: any
+  addUserMutation?: any
+  authSuccess?: boolean
 }
 
 const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -50,33 +54,33 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         process.env.HASURA_GRAPHQL_JWT_SECRET as string
       )
 
+      console.log("token", token)
+
       // check to see if user exists in the db using the token
       const isNewUserQuery = await isNewUser(token, metadata.issuer)
 
       // if isNewUserQuery is true, then the user is new and we can add them to the db
-      if (isNewUserQuery) {
-        await addUser(
+      isNewUserQuery &&
+        (await addUser(
           token,
           metadata.issuer,
           metadata.publicAddress,
           metadata.email
-        )
-      }
+        ))
 
-      res.status(200).json({
-        name: token,
-        isNewUserQuery,
-      })
-
-      if (!metadata) {
-        res.status(401).json({ error: "Not authorized" })
-        return
-      }
+      // set the cookie with the token
+      setTokenCookie(token, res)
+      res.status(200).json({ authSuccess: true })
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" })
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", authSuccess: false })
     }
   } else {
-    res.status(405).json({ error: "Method not allowed. Use a POST method" })
+    res.status(405).json({
+      error: "Method not allowed. Use a POST method",
+      authSuccess: false,
+    })
     return
   }
 }

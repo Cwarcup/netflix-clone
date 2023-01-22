@@ -73,13 +73,36 @@ const Login = (props: Props) => {
           email: emailInput,
         })
 
+        console.log("didToken", didToken)
+
         // if the DID token is returned, redirect to the home page
         if (didToken) {
-          router.push("/")
+          const response = await fetch("/api/auth", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${didToken}`,
+              "Content-Type": "application/json",
+            },
+          })
+
+          const loggedInResponse = await response.json()
+          console.log("loggedInResponse", loggedInResponse)
+
+          // if status is 200, redirect to the home page
+          if (loggedInResponse.authSuccess === true) {
+            router.push("/")
+          } else {
+            setIsLoading(false)
+            setUserMsg("Something went wrong logging in")
+          }
         }
       } catch (error) {
         console.log("error", error)
       }
+    } else {
+      // show user message
+      setIsLoading(false)
+      setUserMsg("Enter a valid email address")
     }
   }
 
