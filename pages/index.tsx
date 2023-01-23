@@ -24,7 +24,7 @@ export default function Home({ disney, popular }: HomeProps) {
         title="Breaking Bad"
         subTitle="A Netflix Original Series"
         imgUrl="/static/breaking_bad_banner.jpeg"
-        videoId="2"
+        videoId="2gTC4uWP3_Y"
       />
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />

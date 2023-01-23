@@ -6,11 +6,8 @@ import { isNewUser, addUser } from "../../lib/db/hasura"
 import { setTokenCookie } from "../../lib/createCookie"
 
 type Data = {
-  name?: any
-  error?: any
-  isNewUserQuery?: any
-  message?: any
-  addUserMutation?: any
+  error?: string
+  addUserMutation?: string
   authSuccess?: boolean
 }
 

@@ -4,6 +4,8 @@ import Modal from "react-modal"
 import clsx from "classnames"
 import Navbar from "@/components/Navbar/Navbar"
 import { getYoutubeVideoById } from "@/lib/getYoutubeVideos"
+import DislikeIcon from "@/components/icons/DislikeIcon"
+import LikeIcon from "@/components/icons/LikeIcon"
 
 import styles from "@/styles/VideoModal.module.css"
 
@@ -26,7 +28,8 @@ const VideoForId = ({ video }: Props) => {
   const router = useRouter()
   const { videoId } = router.query // unique id for each video
   const [videoIsPlaying, setVideoIsPlaying] = useState(false)
-
+  const [toggleLike, setToggleLike] = useState(false)
+  const [toggleDislike, setToggleDislike] = useState(false)
   const { title, publishedAt, description, channelTitle, statistics } = video
 
   const handleModalClose = () => {
@@ -55,6 +58,18 @@ const VideoForId = ({ video }: Props) => {
     setVideoIsPlaying(!videoIsPlaying)
   }
 
+  const handleLikeBtnClick = () => {
+    console.log("Like clicked")
+    setToggleLike(true)
+    setToggleDislike(false)
+  }
+
+  const handleDislikeBtnClick = () => {
+    console.log("Dislike clicked")
+    setToggleDislike(true)
+    setToggleLike(false)
+  }
+
   return (
     <>
       <Navbar />
@@ -79,6 +94,22 @@ const VideoForId = ({ video }: Props) => {
             className={styles.videoGradient}
             onClick={handleVideoPlayPause}
           ></div>
+          <div className={styles.likeDislikeBtnWrapper}>
+            <div className={styles.likeBtnWrapper}>
+              <button
+                className={styles.btnWrapper}
+                onClick={handleLikeBtnClick}
+              >
+                <LikeIcon selected={toggleLike} />
+              </button>
+            </div>
+            <button
+              className={styles.btnWrapper}
+              onClick={handleDislikeBtnClick}
+            >
+              <DislikeIcon selected={toggleDislike} />
+            </button>
+          </div>
         </div>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>

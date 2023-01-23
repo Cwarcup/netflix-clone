@@ -47,6 +47,7 @@ export default function Banner(props: BannerProps) {
           backgroundImage: `url(${imgUrl}`,
         }}
       ></div>
+      <div id="video-gradient" className={styles.videoGradient}></div>
     </div>
   )
 }

@@ -112,7 +112,7 @@ The stats table stores information about the user's interactions with a video.
 
 I created a `user` role to ensure that only that user has access to their data. I used a [JSON Web Token (JWT)](https://jwt.io/introduction) token to [authenticate the user](https://hasura.io/docs/latest/auth/authentication/index/#2-jwt-json-web-token).
 
-## Authentication
+## Authentication `api/auth`
 
 Created an [API route](https://nextjs.org/docs/api-routes/introduction) (`/api/auth`) to handle authentication. The API route uses the [Magic Admin SDK](https://magic.link/docs/auth/login-methods/email/integration/server-side/node) NodeJS implementation to authenticate the user. The API route returns a [JWT token](https://jwt.io/introduction) to the client. The client then stores the JWT token in a [cookie](https://github.com/jshttp/cookie#readme).
 
@@ -149,4 +149,10 @@ The JWT token contains information about the user, such as their email, public a
   "phoneNumber": null,
   "wallets": []
 }
-```****
+```
+
+## User Stats `api/stats`
+
+The `stats` API is used to read the token from the cookie created during the authentication process. The JWT token if verified using the [Magic SDK](https://magic.link/docs/sdk-for-web) and then queried against the database. If the stats for that user do not exist, they are created. If the stats do exist, they are returned to the client.
+
+The API's purpose is to allow a user to like/dislike a video, as well as view previously watched videos. 
