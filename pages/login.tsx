@@ -45,25 +45,25 @@ const Login = (props: Props) => {
   // fn to handle login with email
   const handleLoginWithEmail = async () => {
     // get the value from the email input
-    const emailInput = emailInputRef.current?.value || null
+    const emailInput = emailInputRef.current?.value.trim() || null
+
     // need to check if the email is valid, if not, show an error message
-    if (!emailInput) {
+    if (!emailInput || emailInput === "") {
       setUserMsg("Please enter an email address")
       setIsLoading(false)
-
       return
     }
 
     if (!isValidEmail(emailInput)) {
       setUserMsg("Please enter a valid email address")
       setIsLoading(false)
-
       return
     }
 
     // clear the user message
     setUserMsg(null)
-    // redirect to the home page
+
+    // if the email is valid, start the login process
     if (emailInput === "curtis.gwarcup@gmail.com") {
       // if the email is valid, send the email to Magic
       try {
@@ -73,9 +73,7 @@ const Login = (props: Props) => {
           email: emailInput,
         })
 
-        console.log("didToken", didToken)
-
-        // if the DID token is returned, redirect to the home page
+        // if the DID token is returned, attempt to login via the /api/auth route
         if (didToken) {
           const response = await fetch("/api/auth", {
             method: "POST",
@@ -86,7 +84,6 @@ const Login = (props: Props) => {
           })
 
           const loggedInResponse = await response.json()
-          console.log("loggedInResponse", loggedInResponse)
 
           // if status is 200, redirect to the home page
           if (loggedInResponse.authSuccess === true) {
@@ -97,7 +94,7 @@ const Login = (props: Props) => {
           }
         }
       } catch (error) {
-        console.log("error", error)
+        console.log("Error when logging in with Magic: ", error)
       }
     } else {
       // show user message

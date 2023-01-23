@@ -34,6 +34,7 @@
 - [Supabase](https://supabase.io/)
 - [GraphQL](https://graphql.org/)
 - [Magic](https://magic.link/)
+- [Cookie](https://github.com/jshttp/cookie#readme)
 
 ## Component Architecture
 

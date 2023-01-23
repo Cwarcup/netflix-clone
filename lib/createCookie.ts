@@ -1,7 +1,7 @@
 import cookie from "cookie"
 import { NextApiResponse } from "next"
 
-const MAX_AGE = 7 * 24 * 60 * 60
+const MAX_AGE = 7 * 24 * 60 * 60 // 7 days
 
 export const setTokenCookie = (token: string, res: NextApiResponse) => {
   const setCookie = cookie.serialize("token", token, {

@@ -21,6 +21,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const auth = req.headers.authorization as string
       const didToken = auth ? auth.substring(7) : null
 
+      // if no token, return error
       if (!didToken) {
         res.status(401).json({
           error:
@@ -32,6 +33,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       // create jwt token, and use it to authenticate with Hasura
       const metadata = await magicAdmin?.users.getMetadataByToken(didToken)
 
+      // if no metadata, return error
       if (!metadata) {
         res
           .status(401)
@@ -39,7 +41,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return
       }
 
-      // can use this token to authenticate with Hasura
+      // create a token use this token to authenticate with Hasura
       const token = jwt.sign(
         {
           ...metadata,
@@ -53,8 +55,6 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         },
         process.env.HASURA_GRAPHQL_JWT_SECRET as string
       )
-
-      console.log("token", token)
 
       // check to see if user exists in the db using the token
       const isNewUserQuery = await isNewUser(token, metadata.issuer)
@@ -70,6 +70,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
       // set the cookie with the token
       setTokenCookie(token, res)
+      // return success
       res.status(200).json({ authSuccess: true })
     } catch (error) {
       res
