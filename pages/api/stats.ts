@@ -10,14 +10,7 @@ import {
 
 type Data = {
   message?: string
-  data:
-    | videoStatsType
-    | {
-        videoId: string
-        userId: string
-        watched: boolean
-        favourited: boolean | null
-      }
+  data: any
   error?: string
 }
 
@@ -56,7 +49,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
     const findVideo = await findVideoIdByUserId(token, userId, videoId)
 
     if (req.method === "POST") {
-      const { favourited, watched = false } = req.body as ReqType
+      const { favourited = null, watched = false } = req.body as ReqType
 
       if (!findVideo) {
         // create a new video stats object
@@ -66,6 +59,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           videoId,
           favourited,
         } as videoStatsType)
+
         res.send({ message: "Stats created", data: insertStatsRes })
       } else {
         // update the video stats object
@@ -75,6 +69,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           videoId,
           favourited,
         } as videoStatsType)
+
         res.send({ message: "Stats updated", data: updateStatsRes })
       }
     } else {

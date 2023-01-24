@@ -92,13 +92,17 @@ const VideoForId = ({ video }: Props) => {
       const videoData = await response.json()
 
       if (videoData.data.length > 0) {
-        videoData.data[0].favourited = true
-          ? setToggleLike(true)
-          : setToggleDislike(true)
+        if (videoData.data[0].favourited === true) {
+          setToggleLike(true)
+        } else {
+          setToggleDislike(true)
+        }
       }
     }
     handleLikeDislikeService()
   }, [videoId])
+
+  console.log()
 
   return (
     <>
