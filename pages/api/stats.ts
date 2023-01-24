@@ -25,7 +25,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
       }
 
       // get the videoId from the query
-      const videoId = req.query.videoId as string
+      const videoId = req.body.videoId as string
 
       // need to decode the token
       const userId = await verifyToken(token)

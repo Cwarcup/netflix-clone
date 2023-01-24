@@ -58,16 +58,29 @@ const VideoForId = ({ video }: Props) => {
     setVideoIsPlaying(!videoIsPlaying)
   }
 
-  const handleLikeBtnClick = () => {
-    console.log("Like clicked")
-    setToggleLike(true)
-    setToggleDislike(false)
+  const runRatingService = async (favourited: boolean) => {
+    return await fetch("/api/stats", {
+      method: "POST",
+      body: JSON.stringify({
+        videoId,
+        favourited,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
   }
 
-  const handleDislikeBtnClick = () => {
-    console.log("Dislike clicked")
+  const handleLikeBtnClick = async () => {
+    setToggleLike(true)
+    setToggleDislike(false)
+    await runRatingService(true)
+  }
+
+  const handleDislikeBtnClick = async () => {
     setToggleDislike(true)
     setToggleLike(false)
+    runRatingService(false)
   }
 
   return (
