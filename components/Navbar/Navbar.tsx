@@ -22,18 +22,13 @@ const Navbar = () => {
   useEffect(() => {
     const getMagicUsername = async () => {
       try {
-        const { email, issuer, publicAddress } =
-          (await magicClient?.user.getMetadata()) as {
-            email: string
-            issuer: string
-            publicAddress: string
-          }
-        // console.log({ issuer })
-        // console.log({ publicAddress })
-        // console.log({ email })
+        const { email } = (await magicClient?.user.getMetadata()) as {
+          email: string
+          issuer: string
+          publicAddress: string
+        }
 
-        const didToken = await magicClient?.user.getIdToken()
-        // console.log("didToken", didToken)
+        await magicClient?.user.getIdToken()
 
         setUsername(email)
       } catch (error) {
@@ -50,7 +45,6 @@ const Navbar = () => {
     try {
       // attempt to log out the user
       await magicClient?.user.logout()
-
       router.push("/login")
     } catch (error) {
       console.log("Error logging out", error)

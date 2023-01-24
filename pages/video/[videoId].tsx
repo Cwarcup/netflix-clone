@@ -102,8 +102,6 @@ const VideoForId = ({ video }: Props) => {
     handleLikeDislikeService()
   }, [videoId])
 
-  console.log()
-
   return (
     <>
       <Navbar />
@@ -182,7 +180,6 @@ const VideoForId = ({ video }: Props) => {
 export async function getStaticProps(context: any) {
   // get the videoId from the context
   const videoId: string = context.params.videoId
-  console.log("videoId", videoId)
 
   // get the video from the youtube api
   const videoArray = await getYoutubeVideoById(videoId)

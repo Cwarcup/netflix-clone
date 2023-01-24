@@ -19,7 +19,6 @@ function convertDateString(dateString: Date): string {
 const fetchVideos = async (url: string) => {
   const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
   const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
-  console.log("fetchUrl: ", fetchUrl)
 
   const response = await fetch(fetchUrl, {
     method: "GET",

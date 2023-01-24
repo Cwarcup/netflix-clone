@@ -16,7 +16,6 @@ export default function Banner(props: BannerProps) {
   const router = useRouter()
 
   const handleOnPlay = () => {
-    console.log("play")
     router.push(`/video/${videoId}`)
   }
   return (

@@ -26,7 +26,6 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     // read token from cookies
     const token = req?.cookies?.token || null
-    console.log("token: ", token)
 
     if (!token) {
       res.status(403).end("Forbidden. No token provided by cookie.")

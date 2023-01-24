@@ -18,7 +18,6 @@ type HomeProps = {
 }
 
 export default function Home({ disney, popular, userVideos }: HomeProps) {
-  console.log(userVideos)
   return (
     <div className={styles.container}>
       <Head>
@@ -49,7 +48,6 @@ export async function getServerSideProps() {
     "did:ethr:0x92bc41051969ededBDC131d099D44B73D40aDC01"
   )
 
-  console.log(userVideos)
   return {
     props: {
       disney,
