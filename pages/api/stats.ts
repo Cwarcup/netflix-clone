@@ -9,7 +9,15 @@ import {
 } from "../../lib/db/hasura"
 
 type Data = {
+  message?: string
   data?: any
+  error?: string
+}
+
+type ReqBodyType = {
+  videoId: string
+  favourited: boolean | null
+  watched: boolean
 }
 // route to get a users stats
 
@@ -25,7 +33,11 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
       }
 
       // get the videoId from the query
-      const videoId = req.body.videoId as string
+      const {
+        videoId,
+        favourited = null,
+        watched = true,
+      } = req.body as ReqBodyType
 
       // need to decode the token
       const userId = await verifyToken(token)
@@ -36,14 +48,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
       }
 
       // check if the user has stats for this video
-      const videoStats = (await findVideoIdByUserId(
-        token,
-        userId,
-        videoId
-      )) as videoStatsType | null
-
-      // get the stats from the request body
-      const { favourited = null, watched = true } = req.body
+      const videoStats = await findVideoIdByUserId(token, userId, videoId)
 
       if (!videoStats) {
         // create a new video stats object
@@ -53,9 +58,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           videoId,
           favourited,
         } as videoStatsType)
-
-        res.status(200).json({ data: updateStatsRes })
-        return
+        res.send({ message: "Stats created", data: updateStatsRes })
       } else {
         // update the video stats object
         const updateStatsRes = await updateStats(token, {
@@ -64,11 +67,10 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           videoId,
           favourited,
         } as videoStatsType)
-        res.status(200).json({ data: updateStatsRes })
-        return
+        res.send({ message: "Stats updated", data: updateStatsRes })
       }
     } catch (error) {
-      console.error("Error occured: ", error)
+      console.error("Error occurred: ", error)
       res.status(500).end("Internal Server Error")
       return
     }

@@ -152,8 +152,12 @@ mutation updateStats($favourited: Boolean, $userId: String!, $watched: Boolean!,
 export async function insertStats(
   token: string,
   { favourited, userId, watched, videoId }: videoStatsType
-) {
-  console.log("insertStats", { favourited, userId, watched, videoId })
+): Promise<{
+  favourited: boolean
+  userId: string
+  watched: boolean
+  videoId: string
+}> {
   const operationsDoc = `
   mutation insertStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
     insert_stats_one(object: {
@@ -164,6 +168,8 @@ export async function insertStats(
     }) {
         favourited
         userId
+        watched
+        videoId
     }
   }
 `
