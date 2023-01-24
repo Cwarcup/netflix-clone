@@ -1,4 +1,11 @@
-import type { CardType, YoutubeResponse, Item, GetVideoByIdType } from "@/types"
+import { getWatchedVideos } from "@/lib/db/hasura"
+import type {
+  CardType,
+  YoutubeResponse,
+  Item,
+  GetVideoByIdType,
+  WatchedVideosListType,
+} from "@/types"
 import hardCodedVideos from "@/data/youtubeData.json"
 
 // used to convert the date string to a more readable format
@@ -12,6 +19,7 @@ function convertDateString(dateString: Date): string {
 const fetchVideos = async (url: string) => {
   const BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
   const fetchUrl = `${BASE_URL}${url}&key=${process.env.YOUTUBE_API_KEY}`
+  console.log("fetchUrl: ", fetchUrl)
 
   const response = await fetch(fetchUrl, {
     method: "GET",
@@ -34,7 +42,8 @@ const getCommonVideos = async (url: string): Promise<CardType[]> => {
       const imgUrl =
         item.snippet.thumbnails?.maxres?.url ??
         item.snippet.thumbnails?.standard?.url ??
-        item.snippet.thumbnails?.high.url
+        item.snippet.thumbnails?.high.url ??
+        item.snippet.thumbnails?.medium.url
 
       return {
         id: item.id.videoId || item.id,
@@ -112,4 +121,20 @@ export const getYoutubeVideoById = async (
       },
     ]
   }
+}
+
+export const getWatchItAgainVideos = async (
+  token: string,
+  userId: string
+): Promise<WatchedVideosListType[]> => {
+  const videos = await getWatchedVideos(token, userId)
+
+  const videosList = videos.map((video) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  })
+
+  return videosList
 }

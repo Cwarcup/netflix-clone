@@ -1,6 +1,6 @@
 import { verifyToken } from "./../../lib/verifyToken"
 import type { NextApiRequest, NextApiResponse } from "next"
-import type { videoStatsType } from "../../types"
+import type { VideoStatsType } from "../../types"
 
 import {
   findVideoIdByUserId,
@@ -26,6 +26,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     // read token from cookies
     const token = req?.cookies?.token || null
+    console.log("token: ", token)
 
     if (!token) {
       res.status(403).end("Forbidden. No token provided by cookie.")
@@ -49,7 +50,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
     const findVideo = await findVideoIdByUserId(token, userId, videoId)
 
     if (req.method === "POST") {
-      const { favourited = null, watched = false } = req.body as ReqType
+      const { favourited = null, watched = true } = req.body as ReqType
 
       if (!findVideo) {
         // create a new video stats object
@@ -58,7 +59,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           userId,
           videoId,
           favourited,
-        } as videoStatsType)
+        } as VideoStatsType)
 
         res.send({ message: "Stats created", data: insertStatsRes })
       } else {
@@ -68,7 +69,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
           userId,
           videoId,
           favourited,
-        } as videoStatsType)
+        } as VideoStatsType)
 
         res.send({ message: "Stats updated", data: updateStatsRes })
       }

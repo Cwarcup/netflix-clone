@@ -1,4 +1,4 @@
-import type { videoStatsType } from "../../types"
+import type { VideoStatsType, GetWatchedVideosType } from "../../types"
 
 // operationsDoc is the GraphQL query or mutation
 // operationName is the name of the query or mutation
@@ -91,7 +91,7 @@ export async function findVideoIdByUserId(
   token: string,
   userId: string | null,
   videoId: string | null
-): Promise<videoStatsType | null> {
+): Promise<VideoStatsType | null> {
   const operationsDoc = `
   query findVideoIdByUserId($userId: String!, $videoId: String!) {
     stats(where: { userId: {_eq: $userId}, videoId: {_eq: $videoId }}) {
@@ -121,7 +121,7 @@ export async function findVideoIdByUserId(
 // update a users stats for a specific video
 export async function updateStats(
   token: string,
-  { favourited, userId, watched, videoId }: videoStatsType
+  { favourited, userId, watched, videoId }: VideoStatsType
 ) {
   const operationsDoc = `
 mutation updateStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
@@ -151,7 +151,7 @@ mutation updateStats($favourited: Boolean, $userId: String!, $watched: Boolean!,
 
 export async function insertStats(
   token: string,
-  { favourited, userId, watched, videoId }: videoStatsType
+  { favourited, userId, watched, videoId }: VideoStatsType
 ): Promise<{
   favourited: boolean
   userId: string
@@ -180,4 +180,30 @@ export async function insertStats(
     { favourited, userId, watched, videoId },
     token
   )
+}
+
+// query to return all videos that a user has watched
+export async function getWatchedVideos(
+  token: string,
+  userId: string
+): Promise<GetWatchedVideosType[]> {
+  const operationsDoc = `
+  query getWatchedVideos($userId: String!) {
+    stats(where: {
+        userId: {_eq: $userId},
+        watched: {_eq: true}}
+        ){
+      videoId
+    }
+  }
+`
+
+  const response = await queryGraphQL(
+    operationsDoc,
+    "getWatchedVideos",
+    { userId },
+    token
+  )
+
+  return response?.data?.stats ?? []
 }
