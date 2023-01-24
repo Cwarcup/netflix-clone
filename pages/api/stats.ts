@@ -10,7 +10,7 @@ import {
 
 type Data = {
   message?: string
-  data?:
+  data:
     | videoStatsType
     | {
         videoId: string
@@ -83,7 +83,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
         res.status(404).end("Video Not Found")
         return
       }
-      res.send({ message: "Stats found", data: findVideo })
+      res.send({ data: findVideo })
     }
   } catch (error) {
     console.error("Error occurred: ", error)

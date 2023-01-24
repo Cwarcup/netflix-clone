@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Modal from "react-modal"
 import clsx from "classnames"
 import Navbar from "@/components/Navbar/Navbar"
@@ -82,6 +82,23 @@ const VideoForId = ({ video }: Props) => {
     setToggleLike(false)
     runRatingService(false)
   }
+
+  // use the videoId to query the database to see if the video has been liked or disliked
+  useEffect(() => {
+    const handleLikeDislikeService = async () => {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: "GET",
+      })
+      const videoData = await response.json()
+
+      if (videoData.data.length > 0) {
+        videoData.data[0].favourited = true
+          ? setToggleLike(true)
+          : setToggleDislike(true)
+      }
+    }
+    handleLikeDislikeService()
+  }, [videoId])
 
   return (
     <>
