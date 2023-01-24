@@ -36,6 +36,19 @@ const VideoForId = ({ video }: Props) => {
     router.back()
   }
 
+  const runRatingService = async (favourited: boolean) => {
+    return await fetch("/api/stats", {
+      method: "POST",
+      body: JSON.stringify({
+        videoId,
+        favourited,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  }
+
   const handleVideoPlayPause = () => {
     const player = document.getElementById("youtube-player")
     const gradient = document.getElementById("video-gradient")
@@ -56,19 +69,6 @@ const VideoForId = ({ video }: Props) => {
     }
 
     setVideoIsPlaying(!videoIsPlaying)
-  }
-
-  const runRatingService = async (favourited: boolean) => {
-    return await fetch("/api/stats", {
-      method: "POST",
-      body: JSON.stringify({
-        videoId,
-        favourited,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
   }
 
   const handleLikeBtnClick = async () => {
