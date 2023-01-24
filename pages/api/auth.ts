@@ -75,8 +75,9 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         .json({ error: "Internal Server Error", authSuccess: false })
     }
   } else {
+    res.setHeader("Allow", ["POST"])
     res.status(405).json({
-      error: "Method not allowed. Use a POST method",
+      error: `Method ${req.method} Not Allowed`,
       authSuccess: false,
     })
     return

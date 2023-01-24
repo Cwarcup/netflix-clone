@@ -1,3 +1,5 @@
+import type { videoStatsType } from "../../types"
+
 // operationsDoc is the GraphQL query or mutation
 // operationName is the name of the query or mutation
 // variables are the variables used in the query or mutation, is an object, can be empty
@@ -58,7 +60,7 @@ export async function addUser(
   issuer: string | null,
   publicAddress: string | null,
   email: string | null
-) {
+): Promise<any> {
   const operationsDoc = `
   mutation addUser($issuer: String!, $email: String!, $publicAddress: String!) {
     insert_Users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress}) {
@@ -82,4 +84,94 @@ export async function addUser(
   )
 
   return response
+}
+
+// get a users stats for a specific video
+export async function findVideoIdByUserId(
+  token: string,
+  userId: string | null,
+  videoId: string | null
+): Promise<videoStatsType | null> {
+  const operationsDoc = `
+  query findVideoIdByUserId($userId: String!, $videoId: String!) {
+    stats(where: { userId: {_eq: $userId}, videoId: {_eq: $videoId }}) {
+      id
+      userId
+      videoId
+      favourited
+      watched
+    }
+  }
+`
+
+  // userId needs to be the token issuer (did:ethr:0x92b...)
+  const response = await queryGraphQL(
+    operationsDoc,
+    "findVideoIdByUserId",
+    {
+      videoId,
+      userId,
+    },
+    token
+  )
+
+  return response?.data?.stats.length > 0 ? response.data.stats : null
+}
+
+// update a users stats for a specific video
+export async function updateStats(
+  token: string,
+  { favourited, userId, watched, videoId }: videoStatsType
+) {
+  const operationsDoc = `
+mutation updateStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
+  update_stats(
+    _set: {watched: $watched, favourited: $favourited}, 
+    where: {
+      userId: {_eq: $userId}, 
+      videoId: {_eq: $videoId}
+    }) {
+    returning {
+      favourited,
+      userId,
+      watched,
+      videoId
+    }
+  }
+}
+`
+
+  return await queryGraphQL(
+    operationsDoc,
+    "updateStats",
+    { favourited, userId, watched, videoId },
+    token
+  )
+}
+
+export async function insertStats(
+  token: string,
+  { favourited, userId, watched, videoId }: videoStatsType
+) {
+  console.log("insertStats", { favourited, userId, watched, videoId })
+  const operationsDoc = `
+  mutation insertStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
+    insert_stats_one(object: {
+      favourited: $favourited, 
+      userId: $userId, 
+      watched: $watched, 
+      videoId: $videoId
+    }) {
+        favourited
+        userId
+    }
+  }
+`
+
+  return await queryGraphQL(
+    operationsDoc,
+    "insertStats",
+    { favourited, userId, watched, videoId },
+    token
+  )
 }

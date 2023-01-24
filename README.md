@@ -35,6 +35,7 @@
 - [GraphQL](https://graphql.org/)
 - [Magic](https://magic.link/)
 - [Cookie](https://github.com/jshttp/cookie#readme)
+- [JWT](https://jwt.io/) ([JSON Web Token GitHub docs](https://github.com/auth0/node-jsonwebtoken#readme)) 
 
 ## Component Architecture
 

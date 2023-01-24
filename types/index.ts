@@ -93,3 +93,11 @@ export interface PageInfo {
   totalResults: number
   resultsPerPage: number
 }
+
+export type videoStatsType = {
+  id: number
+  userId: string
+  videoId: string
+  favourited: boolean | null
+  watched: boolean
+}
