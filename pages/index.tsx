@@ -31,7 +31,7 @@ export default function Home({
   return (
     <div className={styles.container}>
       <Head>
-        <title>Netflix Clone</title>
+        <title>Netflix Clone</title> 
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
       <Navbar />

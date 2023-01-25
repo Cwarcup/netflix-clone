@@ -28,14 +28,14 @@
 
 .logoWrapper {
   color: var(--red);
-  width: 8rem;
+  width: 7rem;
 }
 
 .navItems {
   display: flex;
   flex-direction: row;
   width: 50%;
-  margin-left: 1.5rem;
+
   font-size: 0.875rem;
   font-size: 1rem;
 
