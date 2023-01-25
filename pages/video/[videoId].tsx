@@ -178,7 +178,7 @@ const VideoForId = ({ video }: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps = async (context: any) => {
   // get the videoId from the context
   const videoId = context?.params?.videoId as string
 
