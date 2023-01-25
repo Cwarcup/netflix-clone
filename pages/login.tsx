@@ -8,9 +8,7 @@ import { magicClient } from "@/lib/magicClient"
 
 import styles from "@/styles/Login.module.css"
 
-type Props = {}
-
-const Login = (props: Props) => {
+const Login = () => {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -64,42 +62,37 @@ const Login = (props: Props) => {
     setUserMsg(null)
 
     // if the email is valid, start the login process
-    if (emailInput === "curtis.gwarcup@gmail.com") {
-      // if the email is valid, send the email to Magic
-      try {
-        setIsLoading(true)
-        // send the email to Magic, and get the DID token
-        const didToken = await magicClient?.auth.loginWithMagicLink({
-          email: emailInput,
+
+    // if the email is valid, send the email to Magic
+    try {
+      setIsLoading(true)
+      // send the email to Magic, and get the DID token
+      const didToken = await magicClient?.auth.loginWithMagicLink({
+        email: emailInput,
+      })
+
+      // if the DID token is returned, attempt to login via the /api/auth route
+      if (didToken) {
+        const response = await fetch("/api/auth", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${didToken}`,
+            "Content-Type": "application/json",
+          },
         })
 
-        // if the DID token is returned, attempt to login via the /api/auth route
-        if (didToken) {
-          const response = await fetch("/api/auth", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${didToken}`,
-              "Content-Type": "application/json",
-            },
-          })
+        const loggedInResponse = await response.json()
 
-          const loggedInResponse = await response.json()
-
-          // if status is 200, redirect to the home page
-          if (loggedInResponse.authSuccess === true) {
-            router.push("/")
-          } else {
-            setIsLoading(false)
-            setUserMsg("Something went wrong logging in")
-          }
+        // if status is 200, redirect to the home page
+        if (loggedInResponse.authSuccess === true) {
+          router.push("/")
+        } else {
+          setIsLoading(false)
+          setUserMsg("Something went wrong logging in")
         }
-      } catch (error) {
-        console.log("Error when logging in with Magic: ", error)
       }
-    } else {
-      // show user message
-      setIsLoading(false)
-      setUserMsg("Enter a valid email address")
+    } catch (error) {
+      console.error("Error when logging in with Magic: ", error)
     }
   }
 

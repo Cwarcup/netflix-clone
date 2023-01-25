@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
 import jwt from "jsonwebtoken"
 import { isNewUser, addUser } from "../../lib/db/hasura"
-import { setTokenCookie } from "../../lib/createCookie"
+import { setTokenCookie } from "../../lib/Cookie"
 
 type Data = {
   error?: string

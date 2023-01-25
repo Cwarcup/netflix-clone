@@ -13,6 +13,7 @@ export const setTokenCookie = (token: string, res: NextApiResponse) => {
   res.setHeader("Set-Cookie", setCookie)
 }
 
+// removes the cookie from the browser by setting the maxAge to -1
 export const removeTokenCookie = (res: NextApiResponse) => {
   const val = cookie.serialize("token", "", {
     maxAge: -1,

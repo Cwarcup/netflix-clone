@@ -1,4 +1,4 @@
-import { getWatchedVideos } from "@/lib/db/hasura"
+import { getWatchedVideos, getMyListVideos } from "@/lib/db/hasura"
 import type {
   CardType,
   YoutubeResponse,
@@ -55,7 +55,7 @@ const getCommonVideos = async (url: string): Promise<CardType[]> => {
 
     return YoutubeMutatedData
   } catch (error) {
-    console.log(error)
+    console.error(error)
 
     return [
       {
@@ -136,4 +136,18 @@ export const getWatchItAgainVideos = async (
   })
 
   return videosList
+}
+
+export const getMyList = async (
+  token: string,
+  userId: string
+): Promise<WatchedVideosListType[]> => {
+  const videos = await getMyListVideos(token, userId)
+
+  return videos?.map((video: any) => {
+    return {
+      id: video.videoId,
+      imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
+    }
+  })
 }

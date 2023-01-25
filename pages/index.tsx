@@ -10,7 +10,9 @@ import {
 } from "@/lib/getYoutubeVideos"
 
 import type { CardType, WatchedVideosListType } from "@/types"
+import { GetServerSideProps } from "next"
 import { verifyToken } from "@/lib/verifyToken"
+import { redirectUser } from "@/lib/redirectUser"
 
 type HomeProps = {
   disney: CardType[]
@@ -41,13 +43,12 @@ export default function Home({ disney, popular, userVideos }: HomeProps) {
   )
 }
 
-export async function getServerSideProps(context: any) {
-  const token = context.req ? context.req.cookies.token : null
-  const userId = await verifyToken(token)
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { token, userId } = await redirectUser(context)
 
-  // if no user id, redirect to login page
-  if (!userId) {
+  if (!token || !userId) {
     return {
+      props: {},
       redirect: {
         destination: "/login",
         permanent: false,

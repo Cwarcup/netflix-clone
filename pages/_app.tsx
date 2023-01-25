@@ -16,17 +16,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false) // set to false to work on dynamic routes
 
   // comment out to work on dynamic routes
-  // useEffect(() => {
-  //   const getMagicUsername = async () => {
-  //     const isLoggedIn = await magicClient?.user.isLoggedIn()
-  //     if (!isLoggedIn) {
-  //       router.push("/login")
-  //       return
-  //     }
-  //     router.push("/")
-  //   }
-  //   getMagicUsername()
-  // }, [])
+  useEffect(() => {
+    const getMagicUsername = async () => {
+      const isLoggedIn = await magicClient?.user.isLoggedIn()
+      if (!isLoggedIn) {
+        router.push("/login")
+        return
+      }
+      router.push("/")
+    }
+    getMagicUsername()
+  }, [])
 
   useEffect(() => {
     const handleComplete = () => {

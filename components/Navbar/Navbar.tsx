@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri"
 import { magicClient } from "@/lib/magicClient"
+import cookie from "cookie"
 
 import styles from "./Navbar.module.css"
 
@@ -15,6 +16,8 @@ const Navbar = () => {
 
   const [username, setUsername] = useState<string | null>(null)
 
+  const [didToken, setDidToken] = useState<string | null>(null)
+
   const handleShowDropdown = () => {
     setIsOpen(!isOpen)
   }
@@ -24,15 +27,17 @@ const Navbar = () => {
       try {
         const { email } = (await magicClient?.user.getMetadata()) as {
           email: string
-          issuer: string
-          publicAddress: string
         }
 
-        await magicClient?.user.getIdToken()
+        const token = await magicClient?.user.getIdToken()
+
+        if (token) {
+          setDidToken(token)
+        }
 
         setUsername(email)
       } catch (error) {
-        console.log("Error retrieving email", error)
+        console.error("Error retrieving email", error)
       }
     }
 
@@ -44,8 +49,24 @@ const Navbar = () => {
 
     try {
       // attempt to log out the user
-      await magicClient?.user.logout()
-      router.push("/login")
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+
+      const logoutResponse = await response.json()
+
+      if (logoutResponse.logoutSuccess === true) {
+        // if the logout was successful, redirect to the login page
+        router.push("/login")
+        return
+      } else {
+        // if the logout was not successful, show an error message
+        console.log("Error logging out")
+      }
     } catch (error) {
       console.log("Error logging out", error)
       router.push("/login")
@@ -71,7 +92,7 @@ const Navbar = () => {
             <Link href="/">Home</Link>
           </li>
           <li className={styles.navItem2}>
-            <Link href="/my-list">My List</Link>
+            <Link href="/browse/my-list">My List</Link>
           </li>
         </ul>
         <nav className={styles.navContainer}>

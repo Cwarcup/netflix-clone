@@ -207,3 +207,30 @@ export async function getWatchedVideos(
 
   return response?.data?.stats ?? []
 }
+
+export async function getMyListVideos(
+  token: string,
+  userId: string
+): Promise<GetWatchedVideosType[]> {
+  const operationsDoc = `
+  query favouritedVideos($userId: String!) {
+    stats(where: {
+      userId: {_eq: $userId}, 
+      favourited: {_eq: true}
+    }) {
+      videoId
+    }
+  }
+`
+
+  const response = await queryGraphQL(
+    operationsDoc,
+    "favouritedVideos",
+    {
+      userId,
+    },
+    token
+  )
+
+  return response?.data?.stats
+}
