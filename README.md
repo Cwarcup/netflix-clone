@@ -35,7 +35,7 @@
 - [GraphQL](https://graphql.org/)
 - [Magic](https://magic.link/)
 - [Cookie](https://github.com/jshttp/cookie#readme)
-- [JWT](https://jwt.io/) ([JSON Web Token GitHub docs](https://github.com/auth0/node-jsonwebtoken#readme)) 
+- [JWT](https://jwt.io/) and [Jose](https://github.com/panva/jose#readme) to sign and verify JWTs
 
 ## Component Architecture
 

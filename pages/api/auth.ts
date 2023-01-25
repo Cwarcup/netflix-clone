@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
-import jwt from "jsonwebtoken"
+import { SignJWT } from "jose"
 import { isNewUser, addUser } from "../../lib/db/hasura"
 import { setTokenCookie } from "../../lib/Cookie"
 
@@ -38,20 +38,25 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return
       }
 
-      // create a token use this token to authenticate with Hasura
-      const token = jwt.sign(
-        {
-          ...metadata,
-          iat: Math.floor(Date.now() / 1000),
-          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
-          "https://hasura.io/jwt/claims": {
-            "x-hasura-allowed-roles": ["user", "admin"],
-            "x-hasura-default-role": "user",
-            "x-hasura-user-id": `${metadata.issuer}`,
-          },
+      // use jose to sign the jwt token
+      const token = await new SignJWT({
+        ...metadata,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+        "https://hasura.io/jwt/claims": {
+          "x-hasura-allowed-roles": ["user", "admin"],
+          "x-hasura-default-role": "user",
+          "x-hasura-user-id": `${metadata.issuer}`,
         },
-        process.env.HASURA_GRAPHQL_JWT_SECRET as string
-      )
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("7d")
+        .sign(
+          new TextEncoder().encode(
+            process.env.HASURA_GRAPHQL_JWT_SECRET as string
+          )
+        )
 
       // check to see if user exists in the db using the token
       const isNewUserQuery = await isNewUser(token, metadata.issuer)

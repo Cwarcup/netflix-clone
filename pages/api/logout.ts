@@ -1,4 +1,3 @@
-import { redirectUser } from "@/lib/redirectUser"
 import { verifyToken } from "@/lib/verifyToken"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { removeTokenCookie } from "lib/Cookie"
