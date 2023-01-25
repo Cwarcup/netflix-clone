@@ -125,34 +125,6 @@ The JWT token contains information about the user, such as their email, public a
 
 > The database is setup to only allow a user to access their own data unless they have `X-Hasura-Role` set to `admin` and have the `x-hasura-admin-secret`. This ensures that a user can only access their own data.
 
-```js
-// JWT token
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweDkyYmM0MTA1MTk2OWVkZWRCREMxMzFkMDk5RDQ0QjczRDQwYURDMDEiLCJwdWJsaWNBZGRyZXNzIjoiMHg5MmJjNDEwNTE5NjllZGVkQkRDMTMxZDA5OUQ0NEI3M0Q0MGFEQzAxIiwiZW1haWwiOiJjdXJ0aXMuZ3dhcmN1cEBnbWFpbC5jb20iLCJvYXV0aFByb3ZpZGVyIjpudWxsLCJwaG9uZU51bWJlciI6bnVsbCwid2FsbGV0cyI6W10sImlhdCI6MTY3NDUwODc5MywiZXhwIjoxNjc1MTEzNTkzLCJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWFsbG93ZWQtcm9sZXMiOlsidXNlciIsImFkbWluIl0sIngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoiZGlkOmV0aHI6MHg5MmJjNDEwNTE5NjllZGVkQkRDMTMxZDA5OUQ0NEI3M0Q0MGFEQzAxIn19.cde67C2wHzBobhJwYiq8q0WS8R3QaIuwwZ9UsgSpv2E
-{
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-   "exp": 1516239022,
-   "did:ethr": "0x3453245345",
-   "email": "cwarcup@gmail.com",
-  "https://hasura.io/jwt/claims": {
-    "x-hasura-allowed-roles": ["user", "admin"],
-    "x-hasura-default-role": "user",
-    "x-hasura-user-id": "did:ethr:0x23423234234234"
-  }
-}
-
-// metadata
-{
-  "issuer": "did:ethr:0x92bc41051969ededBDC131d099D44B73D40aDC01",
-  "publicAddress": "0x92bc41051969ededBDC131d099D44B73D40aDC01",
-  "email": "curtis.gwarcup@gmail.com",
-  "oauthProvider": null,
-  "phoneNumber": null,
-  "wallets": []
-}
-```
-
 ## User Stats `api/stats`
 
 The `stats` API is used to read the token from the cookie created during the authentication process. The JWT token if verified using the [Magic SDK](https://magic.link/docs/sdk-for-web) and then queried against the database. If the stats for that user do not exist, they are created. If the stats do exist, they are returned to the client.
