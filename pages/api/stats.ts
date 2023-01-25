@@ -1,27 +1,15 @@
-import { verifyToken } from "./../../lib/verifyToken"
 import type { NextApiRequest, NextApiResponse } from "next"
-import type { VideoStatsType } from "../../types"
-
+import { verifyToken } from "./../../lib/verifyToken"
 import {
   findVideoIdByUserId,
   updateStats,
   insertStats,
 } from "../../lib/db/hasura"
+import type { VideoStatsType } from "../../types"
 
-type Data = {
-  message?: string
-  data: any
-  error?: string
-}
-
-type ReqType = {
-  videoId?: string
-  favourited?: boolean | null
-  watched?: boolean
-}
+type Data = Record<string, unknown>
 
 // route to get a users stats
-
 const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     // read token from cookies
@@ -49,7 +37,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
     const findVideo = await findVideoIdByUserId(token, userId, videoId)
 
     if (req.method === "POST") {
-      const { favourited = null, watched = true } = req.body as ReqType
+      const { favourited = null, watched = true } = req.body
 
       if (!findVideo) {
         // create a new video stats object

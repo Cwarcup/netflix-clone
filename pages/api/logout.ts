@@ -1,5 +1,5 @@
-import { verifyToken } from "@/lib/verifyToken"
 import type { NextApiRequest, NextApiResponse } from "next"
+import { verifyToken } from "@/lib/verifyToken"
 import { removeTokenCookie } from "lib/Cookie"
 import { magicAdmin } from "@/lib/magicServer"
 

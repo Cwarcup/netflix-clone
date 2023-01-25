@@ -3,10 +3,8 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri"
-import { magicClient } from "@/lib/magicClient"
-import cookie from "cookie"
-
 import styles from "./Navbar.module.css"
+import { magicClient } from "@/lib/magicClient"
 
 const Navbar = () => {
   const router = useRouter()
@@ -22,6 +20,7 @@ const Navbar = () => {
     setIsOpen(!isOpen)
   }
 
+  // gets the username from the Magic user object and sets the username state variable
   useEffect(() => {
     const getMagicUsername = async () => {
       try {
@@ -65,10 +64,10 @@ const Navbar = () => {
         return
       } else {
         // if the logout was not successful, show an error message
-        console.log("Error logging out")
+        console.error("Error logging out")
       }
     } catch (error) {
-      console.log("Error logging out", error)
+      console.error("Error logging out", error)
       router.push("/login")
     }
   }

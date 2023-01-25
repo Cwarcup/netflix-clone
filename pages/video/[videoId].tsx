@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
+import { GetServerSideProps } from "next"
 import Modal from "react-modal"
 import clsx from "classnames"
 import Navbar from "@/components/Navbar/Navbar"
@@ -177,9 +178,9 @@ const VideoForId = ({ video }: Props) => {
   )
 }
 
-export async function getStaticProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   // get the videoId from the context
-  const videoId: string = context.params.videoId
+  const videoId = context?.params?.videoId as string
 
   // get the video from the youtube api
   const videoArray = await getYoutubeVideoById(videoId)
@@ -195,7 +196,7 @@ export async function getStaticProps(context: any) {
 
 export async function getStaticPaths() {
   // list to pre-render
-  const listOfVideos = ["oBrkbWSB3Ls", "Znsa4Deavgg", "NthGfn_ddRQ"]
+  const listOfVideos = ["2gTC4uWP3_Y", "GXrDYboUnnw", "Md1AK72ihM4"]
 
   // Get the paths we want to pre-render based on posts
   const paths = listOfVideos.map((id) => ({

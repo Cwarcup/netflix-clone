@@ -1,8 +1,10 @@
 import Head from "next/head"
+import { GetServerSideProps } from "next"
 import styles from "@/styles/Home.module.css"
 import Banner from "@/components/Banner/Banner"
 import Navbar from "@/components/Navbar/Navbar"
 import CardSection from "@/components/CardSection/CardSection"
+import { redirectUser } from "@/lib/redirectUser"
 import {
   getVideos,
   getPopularVideos,
@@ -10,17 +12,22 @@ import {
 } from "@/lib/getYoutubeVideos"
 
 import type { CardType, WatchedVideosListType } from "@/types"
-import { GetServerSideProps } from "next"
-import { verifyToken } from "@/lib/verifyToken"
-import { redirectUser } from "@/lib/redirectUser"
 
 type HomeProps = {
-  disney: CardType[]
-  popular: CardType[]
   userVideos: WatchedVideosListType[]
+  popular: CardType[]
+  comedy: CardType[]
+  japaneseRealityTv: CardType[]
+  netflixOriginals: CardType[]
 }
 
-export default function Home({ disney, popular, userVideos }: HomeProps) {
+export default function Home({
+  popular,
+  userVideos,
+  comedy,
+  japaneseRealityTv,
+  netflixOriginals,
+}: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
@@ -36,7 +43,17 @@ export default function Home({ disney, popular, userVideos }: HomeProps) {
       />
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />
-        <CardSection title="Disney" size="small" videos={disney} />
+        <CardSection title="Comedy" size="small" videos={comedy} />
+        <CardSection
+          title="Japanese Reality TV"
+          size="small"
+          videos={japaneseRealityTv}
+        />
+        <CardSection
+          title="Netflix Originals"
+          size="small"
+          videos={netflixOriginals}
+        />
         <CardSection title="Watch It Again" size="small" videos={userVideos} />
       </div>
     </div>
@@ -56,15 +73,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const disney = await getVideos("Disney Trailers")
   const popular = await getPopularVideos()
   const userVideos = await getWatchItAgainVideos(token, userId)
 
+  const comedy = await getVideos("Newly released comedy movie netflix")
+  const japaneseRealityTv = await getVideos(
+    "Japanese reality tv netflix trailer"
+  )
+  const netflixOriginals = await getVideos("Netflix originals trailer")
+
   return {
     props: {
-      disney,
       popular,
       userVideos,
+      comedy,
+      japaneseRealityTv,
+      netflixOriginals,
     },
   }
 }

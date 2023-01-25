@@ -1,15 +1,10 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next"
 import { magicAdmin } from "../../lib/magicServer"
 import { SignJWT } from "jose"
 import { isNewUser, addUser } from "../../lib/db/hasura"
 import { setTokenCookie } from "../../lib/Cookie"
 
-type Data = {
-  error?: string
-  addUserMutation?: string
-  authSuccess?: boolean
-}
+type Data = Record<string, unknown>
 
 const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === "POST") {

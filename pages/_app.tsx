@@ -18,11 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
   // comment out to work on dynamic routes
   useEffect(() => {
     const getMagicUsername = async () => {
-      const isLoggedIn = await magicClient?.user.isLoggedIn()
-      if (!isLoggedIn) {
-        router.push("/login")
-        return
-      }
       router.push("/")
     }
     getMagicUsername()

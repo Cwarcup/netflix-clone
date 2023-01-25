@@ -129,4 +129,11 @@ The JWT token contains information about the user, such as their email, public a
 
 The `stats` API is used to read the token from the cookie created during the authentication process. The JWT token if verified using the [Magic SDK](https://magic.link/docs/sdk-for-web) and then queried against the database. If the stats for that user do not exist, they are created. If the stats do exist, they are returned to the client.
 
-The API's purpose is to allow a user to like/dislike a video, as well as view previously watched videos. 
+The API's purpose is to allow a user to like/dislike a video, as well as view previously watched videos.
+
+## Middleware
+
+Next.js provides a [middleware](https://nextjs.org/docs/middleware) feature. Middleware is a function that is executed before a request is sent to the API route. I used the middleware to verify the JWT token from the browsers cookie.
+
+I initially used [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken) to handle the signing and verification of the JWT token. However, because the middleware was being run on Next.js' Edge Runtime, I didn't have access to the Native NodeJS modules, and therefore some of the methods in the `jsonwebtoken` package were not available. I decided to use [jose](https://www.npmjs.com/package/jose) instead.
+
