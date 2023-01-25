@@ -102,7 +102,17 @@ const Login = () => {
         <title>Netflix - Sign In</title>
         <meta
           name="description"
-          content="Created by Curtis Warcup. Netflix clone."
+          content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
+        />
+        <meta name="og:title" content="Netflix - Sign In" />
+        <meta
+          name="og:description"
+          content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
+        />
+        <meta name="og:image" content="/static/netflix.svg" />
+        <meta
+          name="og:url"
+          content="https://netflix-clone-cwarcup.vercel.app"
         />
       </Head>
       <header className={styles.header}>

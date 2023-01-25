@@ -1,6 +1,6 @@
+import Head from "next/head"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
-import { GetServerSideProps } from "next"
 import Modal from "react-modal"
 import clsx from "classnames"
 import Navbar from "@/components/Navbar/Navbar"
@@ -105,6 +105,10 @@ const VideoForId = ({ video }: Props) => {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Head>
       <Navbar />
       <Modal
         isOpen={true}

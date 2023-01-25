@@ -16,6 +16,7 @@ const MyList = ({ myListVideos }: Props) => {
     <div>
       <Head>
         <title>My list</title>
+        <meta name="description" content="Created by Curtis Warcup" />
       </Head>
       <main className={styles.main}>
         <Navbar />

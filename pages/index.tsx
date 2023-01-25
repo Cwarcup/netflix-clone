@@ -43,6 +43,14 @@ export default function Home({
       />
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />
+        {userVideos.length > 0 && (
+          <CardSection
+            title="Watch It Again"
+            size="medium"
+            videos={userVideos}
+          />
+        )}
+
         <CardSection title="Comedy" size="small" videos={comedy} />
         <CardSection
           title="Japanese Reality TV"
@@ -54,7 +62,6 @@ export default function Home({
           size="small"
           videos={netflixOriginals}
         />
-        <CardSection title="Watch It Again" size="small" videos={userVideos} />
       </div>
     </div>
   )
