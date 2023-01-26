@@ -1,0 +1,48 @@
+/*  footer that is centered */
+
+.footerWrapper {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footerLinkWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.footerText {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--gray10);
+}
+
+.footerIcon {
+  margin-left: 1rem;
+  color: var(--gray10);
+}
+
+.footerIcon:hover {
+  color: var(--blue);
+}
+
+.portfolioLink {
+  color: var(--gray20);
+}
+
+.portfolioLink:hover {
+  color: var(--blue);
+}
+
+@media (max-width: 768px) {
+  .footerWrapper {
+    flex-direction: column;
+  }
+}

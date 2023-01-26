@@ -1,8 +1,8 @@
 import Head from "next/head"
 import { GetServerSideProps } from "next"
-import styles from "@/styles/Home.module.css"
 import Banner from "@/components/Banner/Banner"
 import Navbar from "@/components/Navbar/Navbar"
+import Footer from "@/components/Footer/Footer"
 import CardSection from "@/components/CardSection/CardSection"
 import { redirectUser } from "@/lib/redirectUser"
 import {
@@ -10,6 +10,7 @@ import {
   getPopularVideos,
   getWatchItAgainVideos,
 } from "@/lib/getYoutubeVideos"
+import styles from "@/styles/Home.module.css"
 
 import type { CardType, WatchedVideosListType } from "@/types"
 
@@ -63,6 +64,7 @@ export default function Home({
           videos={netflixOriginals}
         />
       </div>
+      <Footer />
     </div>
   )
 }
