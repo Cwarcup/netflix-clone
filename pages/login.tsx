@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { isValidEmail } from "@/lib/isValidEmail"
 import { magicClient } from "@/lib/magicClient"
+import { RiGithubFill, RiLinkedinFill } from "react-icons/ri"
 
 import styles from "@/styles/Login.module.css"
 
@@ -181,6 +182,35 @@ const Login = () => {
               <Link href="/" className={styles.helpLink}>
                 Need help?
               </Link>
+            </div>
+            <div className={styles.socialsWrapper}>
+              <div className={styles.socialsLinkWrapper}>
+                <a
+                  href="https://github.com/Cwarcup/netflix-clone"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <RiGithubFill className={styles.socialsIcon} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/curtiswarcup/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <RiLinkedinFill className={styles.socialsIcon} />
+                </a>
+              </div>
+              <p className={styles.socialsText}>
+                Created by{" "}
+                <a
+                  className={styles.portfolioLink}
+                  href="https://www.cwarcup.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Curtis Warcup
+                </a>
+              </p>
             </div>
           </form>
         </div>

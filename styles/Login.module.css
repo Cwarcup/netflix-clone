@@ -160,6 +160,41 @@
   margin-bottom: 1rem;
 }
 
+.socialsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.socialsLinkWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialsText {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--gray10);
+}
+
+.socialsIcon {
+  margin-right: 0.5rem;
+  color: var(--gray10);
+}
+
+.socialsIcon:hover {
+  color: var(--blue);
+}
+
+.portfolioLink {
+  color: var(--gray20);
+}
+
+.portfolioLink:hover {
+  color: var(--blue);
+}
+
 @media (min-width: 768px) {
   .headerWrapper {
     padding-left: 4rem;
