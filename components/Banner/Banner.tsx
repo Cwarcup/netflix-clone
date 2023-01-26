@@ -13,6 +13,8 @@ type BannerProps = {
 export default function Banner(props: BannerProps) {
   const { title, subTitle, imgUrl, videoId } = props
 
+  console.log(props)
+
   const router = useRouter()
 
   const handleOnPlay = () => {
@@ -43,7 +45,7 @@ export default function Banner(props: BannerProps) {
       <div
         className={styles.bannerImg}
         style={{
-          backgroundImage: `url(${imgUrl}`,
+          backgroundImage: `url(/static/breaking_bad_banner.jpeg)`,
         }}
       ></div>
       <div id="video-gradient" className={styles.videoGradient}></div>

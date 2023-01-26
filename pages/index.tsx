@@ -31,14 +31,14 @@ export default function Home({
   return (
     <div className={styles.container}>
       <Head>
-        <title>Netflix Clone</title> 
+        <title>Netflix Clone</title>
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
       <Navbar />
       <Banner
         title="Breaking Bad"
         subTitle="A Netflix Original Series"
-        imgUrl="/static/breaking_bad_banner.jpeg"
+        imgUrl="https://i.ytimg.com/vi/2gTC4uWP3_Y/sddefault.jpg"
         videoId="2gTC4uWP3_Y"
       />
       <div className={styles.sectionWrapper}>
@@ -46,7 +46,7 @@ export default function Home({
         {userVideos.length > 0 && (
           <CardSection
             title="Watch It Again"
-            size="medium"
+            size="small"
             videos={userVideos}
           />
         )}

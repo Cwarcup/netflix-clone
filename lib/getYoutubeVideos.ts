@@ -129,6 +129,14 @@ export const getWatchItAgainVideos = async (
   const videos = await getWatchedVideos(token, userId)
 
   const videosList = videos.map((video) => {
+    // hacky thing because the Breaking Bad video does not have a maxresdefault image
+    if (video.videoId === "2gTC4uWP3_Y") {
+      return {
+        id: video.videoId,
+        imgUrl: `https://i.ytimg.com/vi/${video.videoId}/sddefault.jpg`,
+      }
+    }
+
     return {
       id: video.videoId,
       imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,
@@ -145,6 +153,14 @@ export const getMyList = async (
   const videos = await getMyListVideos(token, userId)
 
   return videos?.map((video: any) => {
+    // hacky thing because the Breaking Bad video does not have a maxresdefault image
+    if (video.videoId === "2gTC4uWP3_Y") {
+      return {
+        id: video.videoId,
+        imgUrl: `https://i.ytimg.com/vi/${video.videoId}/sddefault.jpg`,
+      }
+    }
+
     return {
       id: video.videoId,
       imgUrl: `https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`,

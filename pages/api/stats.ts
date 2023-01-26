@@ -63,8 +63,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
     } else {
       // must be a GET request
       if (!findVideo) {
-        res.status(404).end("Video Not Found")
-        return
+        res.status(404).send({ message: "No stats found for this videoId" })
       }
       res.send({ data: findVideo })
     }

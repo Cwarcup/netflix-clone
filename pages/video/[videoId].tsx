@@ -189,12 +189,12 @@ export const getStaticProps = async (context: any) => {
   // get the video from the youtube api
   const videoArray = await getYoutubeVideoById(videoId)
 
-  // and revalidate every 10 seconds.
+  // and revalidate every 5 hours
   return {
     props: {
       video: videoArray.length > 0 ? videoArray[0] : {},
     },
-    revalidate: 10,
+    revalidate: 60 * 60 * 5,
   }
 }
 
