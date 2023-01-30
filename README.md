@@ -18,7 +18,7 @@ Link: [https://netflix-clone-cwarcup.vercel.app/](https://netflix-clone-cwarcup.
 
 ![View and like a video](https://media4.giphy.com/media/t0DtMGwAEDO5g6xm37/giphy.gif?cid=790b76119e93a37ef0ce97369eec93c35df70d3c2952f1f2&rid=giphy.gif&ct=g)
 
-![View and like a video](https://media3.giphy.com/media/t7MYiyNPObS5VZQOLU/giphy.gif?cid=790b761155b4ef5d4a6dd4197d88dfebbaaca244a48bb05a&rid=giphy.gif&ct=g)
+![Discover videos, like/dislike](https://media3.giphy.com/media/t7MYiyNPObS5VZQOLU/giphy.gif?cid=790b761155b4ef5d4a6dd4197d88dfebbaaca244a48bb05a&rid=giphy.gif&ct=g)
 
 </details>
 
@@ -30,7 +30,7 @@ Link: [https://netflix-clone-cwarcup.vercel.app/](https://netflix-clone-cwarcup.
 
 ![Dynamic Pages Image](/public/static/readmeImages/dynamic-page.png)
 
-![My Favourites List](/public/static/readmeImages/my-list.png)
+![My-List of favourited videos](/public/static/readmeImages/my-list.png)
 
 </details>
 
