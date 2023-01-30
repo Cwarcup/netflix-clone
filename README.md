@@ -2,6 +2,39 @@
 
 ![Netflix Clone](/public/static/netflix-clone-preview.png)
 
+## Live Website
+
+In order to view the live website, you will need to sign in with your email. You can use any email address, no password is required. Once you sign in, you will be able to view the videos, like/dislike videos, and view your favourites list.
+
+Link: [https://netflix-clone-cwarcup.vercel.app/](https://netflix-clone-cwarcup.vercel.app/)
+
+## Preview and Demo Clips
+
+<details>
+<summary>Check out a few video examples!</summary>
+<br>
+
+![Login Process with Magic](https://media3.giphy.com/media/ymP37FR6ysb0UO9PYM/giphy.gif?cid=790b761178b5bdd93f316a49ab10f9c0b61ac857e9298293&rid=giphy.gif&ct=g)
+
+![View and like a video](https://media4.giphy.com/media/t0DtMGwAEDO5g6xm37/giphy.gif?cid=790b76119e93a37ef0ce97369eec93c35df70d3c2952f1f2&rid=giphy.gif&ct=g)
+
+![View and like a video](https://media3.giphy.com/media/t7MYiyNPObS5VZQOLU/giphy.gif?cid=790b761155b4ef5d4a6dd4197d88dfebbaaca244a48bb05a&rid=giphy.gif&ct=g)
+
+</details>
+
+![Homepage image](/public/static/readmeImages/homepage.png)
+
+<details>
+<summary>More Images</summary>
+<br>
+
+![Dynamic Pages Image](/public/static/readmeImages/dynamic-page.png)
+
+![My Favourites List](/public/static/readmeImages/my-list.png)
+
+</details>
+
+
 ## User Stories
 
 Users should ba able to:
