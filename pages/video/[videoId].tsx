@@ -57,15 +57,9 @@ const VideoForId = ({ video }: Props) => {
 
     if (player) {
       if (videoIsPlaying) {
-        player.setAttribute(
-          "src",
-          `https://www.youtube.com/embed/${videoId}?autoplay=0&controls=0&rel=1&showinfo=0`
-        )
+        player.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=0&controls=0&rel=1&showinfo=0`)
       } else {
-        player.setAttribute(
-          "src",
-          `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&rel=1&`
-        )
+        player.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&rel=1&`)
       }
     }
 
@@ -92,7 +86,7 @@ const VideoForId = ({ video }: Props) => {
       })
       const videoData = await response.json()
 
-      if (videoData.data.length > 0) {
+      if (videoData?.data?.length > 0) {
         if (videoData.data[0].favourited === true) {
           setToggleLike(true)
         } else {
@@ -110,40 +104,17 @@ const VideoForId = ({ video }: Props) => {
         <meta name="description" content={description} />
       </Head>
       <Navbar />
-      <Modal
-        isOpen={true}
-        contentLabel="Watch Video"
-        shouldCloseOnEsc={true}
-        onRequestClose={handleModalClose}
-        overlayClassName={styles.overlay}
-        className={styles.modal}
-      >
+      <Modal isOpen={true} contentLabel="Watch Video" shouldCloseOnEsc={true} onRequestClose={handleModalClose} overlayClassName={styles.overlay} className={styles.modal}>
         <div className={styles.videoPlayerContainer}>
-          <iframe
-            id="youtube-player"
-            className={styles.videoPlayer}
-            width="100%"
-            height="360"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1&showinfo=0`}
-          ></iframe>
-          <div
-            id="video-gradient"
-            className={styles.videoGradient}
-            onClick={handleVideoPlayPause}
-          ></div>
+          <iframe id="youtube-player" className={styles.videoPlayer} width="100%" height="360" src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=1&showinfo=0`}></iframe>
+          <div id="video-gradient" className={styles.videoGradient} onClick={handleVideoPlayPause}></div>
           <div className={styles.likeDislikeBtnWrapper}>
             <div className={styles.likeBtnWrapper}>
-              <button
-                className={styles.btnWrapper}
-                onClick={handleLikeBtnClick}
-              >
+              <button className={styles.btnWrapper} onClick={handleLikeBtnClick}>
                 <LikeIcon selected={toggleLike} />
               </button>
             </div>
-            <button
-              className={styles.btnWrapper}
-              onClick={handleDislikeBtnClick}
-            >
+            <button className={styles.btnWrapper} onClick={handleDislikeBtnClick}>
               <DislikeIcon selected={toggleDislike} />
             </button>
           </div>
@@ -152,10 +123,7 @@ const VideoForId = ({ video }: Props) => {
           <div className={styles.modalBodyContent}>
             <div className={styles.col1}>
               <p className={styles.titleText}>{title}</p>
-              <p
-                className={styles.description}
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
+              <p className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />
             </div>
             <div className={styles.col2}>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
@@ -168,11 +136,7 @@ const VideoForId = ({ video }: Props) => {
               </p>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>View Count: </span>
-                <span className={styles.channelTitle}>
-                  {statistics.viewCount
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </span>
+                <span className={styles.channelTitle}>{statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
               </p>
             </div>
           </div>

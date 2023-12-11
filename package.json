@@ -31,5 +31,13 @@
   "devDependencies": {
     "@types/cookie": "^0.5.1",
     "@types/react-modal": "^3.13.1"
-  }
+  },
+  "description": "![Netflix Clone](/public/static/netflix-clone-preview.png)",
+  "main": "next.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
