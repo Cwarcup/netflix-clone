@@ -63,37 +63,62 @@ const Login = () => {
     setUserMsg(null)
 
     // if the email is valid, start the login process
-
-    // if the email is valid, send the email to Magic
-    try {
+    if (emailInput === "email@netflix.com") {
       setIsLoading(true)
-      // send the email to Magic, and get the DID token
-      const didToken = await magicClient?.auth.loginWithMagicLink({
-        email: emailInput,
-      })
-
-      // if the DID token is returned, attempt to login via the /api/auth route
-      if (didToken) {
+      try {
+        // Directly call your API for the special email
         const response = await fetch("/api/auth", {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${didToken}`,
             "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TEST_BEARER_DID}`,
           },
         })
 
         const loggedInResponse = await response.json()
 
-        // if status is 200, redirect to the home page
         if (loggedInResponse.authSuccess === true) {
           router.push("/")
         } else {
           setIsLoading(false)
-          setUserMsg("Something went wrong logging in")
+          setUserMsg("Something went wrong logging in with email.netflix.com")
         }
+      } catch (error) {
+        console.error("Error when logging in: ", error)
+        setIsLoading(false)
       }
-    } catch (error) {
-      console.error("Error when logging in with Magic: ", error)
+    } else {
+      // if the email is valid, send the email to Magic
+      try {
+        setIsLoading(true)
+        // send the email to Magic, and get the DID token
+        const didToken = await magicClient?.auth.loginWithMagicLink({
+          email: emailInput,
+        })
+
+        // if the DID token is returned, attempt to login via the /api/auth route
+        if (didToken) {
+          const response = await fetch("/api/auth", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${didToken}`,
+              "Content-Type": "application/json",
+            },
+          })
+
+          const loggedInResponse = await response.json()
+
+          // if status is 200, redirect to the home page
+          if (loggedInResponse.authSuccess === true) {
+            router.push("/")
+          } else {
+            setIsLoading(false)
+            setUserMsg("Something went wrong logging in")
+          }
+        }
+      } catch (error) {
+        console.error("Error when logging in with Magic: ", error)
+      }
     }
   }
 
@@ -111,10 +136,7 @@ const Login = () => {
           content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
         />
         <meta name="og:image" content="/static/netflix.svg" />
-        <meta
-          name="og:url"
-          content="https://netflix-clone-cwarcup.vercel.app"
-        />
+        <meta name="og:url" content="https://netflix-clone-cwarcup.vercel.app" />
       </Head>
       <header className={styles.header}>
         <div className={styles.headerWrapper}>
@@ -140,8 +162,7 @@ const Login = () => {
             onSubmit={(e) => {
               e.preventDefault()
               handleLoginWithEmail()
-            }}
-          >
+            }}>
             <label className={styles.emailLabel} htmlFor="email">
               Email
             </label>
@@ -161,8 +182,7 @@ const Login = () => {
               className={styles.loginBtn}
               type="submit"
               onClick={handleLoginWithEmail}
-              aria-label="Sign In"
-            >
+              aria-label="Sign In">
               {isLoading ? "Loading..." : "Sign In"}
             </button>
             {/* remember me input and text, is not functional */}
@@ -188,15 +208,13 @@ const Login = () => {
                 <a
                   href="https://github.com/Cwarcup/netflix-clone"
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   <RiGithubFill className={styles.socialsIcon} />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/curtiswarcup/"
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   <RiLinkedinFill className={styles.socialsIcon} />
                 </a>
               </div>
@@ -206,8 +224,7 @@ const Login = () => {
                   className={styles.portfolioLink}
                   href="https://www.cwarcup.com/"
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   Curtis Warcup
                 </a>
               </p>
