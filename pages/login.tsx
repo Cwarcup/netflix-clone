@@ -170,7 +170,7 @@ const Login = () => {
             <input
               className={styles.emailInput}
               type="text"
-              placeholder="Enter your email"
+              placeholder="Enter your email or email@netflix.com to bypass login process"
               ref={emailInputRef}
               onChange={handleEmailInputTyping}
               aria-label="Email Address"
@@ -230,6 +230,11 @@ const Login = () => {
               </p>
             </div>
           </form>
+          <p className={styles.socialsText}>
+            <br />
+            Use the username <strong>email@netflix.com</strong> if you wish to bypass the
+            login process.
+          </p>
         </div>
       </main>
     </div>
