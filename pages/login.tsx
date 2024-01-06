@@ -136,7 +136,7 @@ const Login = () => {
           content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
         />
         <meta name="og:image" content="/static/netflix.svg" />
-        <meta name="og:url" content="https://netflix-clone-cwarcup.vercel.app" />
+        <meta name="og:url" content="https://netflixclonedemo.vercel.app" />
       </Head>
       <header className={styles.header}>
         <div className={styles.headerWrapper}>
