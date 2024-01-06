@@ -1,10 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { verifyToken } from "./../../lib/verifyToken"
-import {
-  findVideoIdByUserId,
-  updateStats,
-  insertStats,
-} from "../../lib/db/hasura"
+import { findVideoIdByUserId, updateStats, insertStats } from "../../lib/db/hasura"
 import type { VideoStatsType } from "../../types"
 
 type Data = Record<string, unknown>
@@ -28,8 +24,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
     }
 
     // if method is post, get the body, otherwise get the query
-    const inputParams: { videoId: string } =
-      req.method === "POST" ? req.body : req.query
+    const inputParams: { videoId: string } = req.method === "POST" ? req.body : req.query
     // get the videoId from the query
     const { videoId } = inputParams
 
@@ -64,6 +59,7 @@ const stats = async function (req: NextApiRequest, res: NextApiResponse<Data>) {
       // must be a GET request
       if (!findVideo) {
         res.status(404).send({ message: "No stats found for this videoId" })
+        return
       }
       res.send({ data: findVideo })
     }
