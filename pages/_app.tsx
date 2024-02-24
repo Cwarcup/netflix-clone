@@ -6,6 +6,8 @@ import { magicClient } from "@/lib/magicClient"
 import { useRouter } from "next/router"
 import Loading from "@/components/Loading/Loading"
 
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google"
+
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
@@ -46,6 +48,8 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
       <Component {...pageProps} />
+      <GoogleAnalytics gaId="G-2CE3D542JK" />
+      <GoogleTagManager gtmId="GTM-2CE3D542JK" />
     </>
   )
 }

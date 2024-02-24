@@ -12,8 +12,6 @@ import {
 } from "@/lib/getYoutubeVideos"
 import styles from "@/styles/Home.module.css"
 
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google"
-
 import type { CardType, WatchedVideosListType } from "@/types"
 
 type HomeProps = {
@@ -37,8 +35,6 @@ export default function Home({
         <title>Netflix Clone</title>
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
-      <GoogleAnalytics gaId="G-2CE3D542JK" />
-      <GoogleTagManager gtmId="GTM-2CE3D542JK" />
       <Navbar />
       <Banner
         title="Breaking Bad"
