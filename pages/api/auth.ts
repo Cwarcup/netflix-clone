@@ -21,6 +21,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
       // if no token, return error
       if (!didToken) {
+        console.log("[auth.ts]: No token found for user. Returning 401.")
         res.status(401).json({
           error: "Not authorized or missing Authorization header with Bearer token",
         })
@@ -36,6 +37,9 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
       // if no metadata, return error
       if (!metadata || metadata.email === specialEmail) {
+        console.log(
+          "[auth.ts]: User is special. Bypassing magic and using special email."
+        )
         metadata = {
           issuer: specialIssuer,
           publicAddress: specialPublicAddress,
@@ -68,14 +72,16 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const isNewUserQuery = await isNewUser(token, metadata.issuer)
 
       // if isNewUserQuery is true, then the user is new and we can add them to the db
-      isNewUserQuery &&
-        (await addUser(token, metadata.issuer, metadata.publicAddress, metadata.email))
+      if (isNewUserQuery) {
+        await addUser(token, metadata.issuer, metadata.publicAddress, metadata.email)
+      }
 
       // set the cookie with the token
       setTokenCookie(token, res)
       // return success
       res.status(200).json({ authSuccess: true })
     } catch (error) {
+      console.error("[auth.ts]: 🛑 Error in auth function - ", error)
       res.status(500).json({ error: "Internal Server Error", authSuccess: false })
     }
   } else {
@@ -84,6 +90,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       error: `Method ${req.method} Not Allowed`,
       authSuccess: false,
     })
+    console.log("[auth.ts]: Method not allowed.")
     return
   }
 }

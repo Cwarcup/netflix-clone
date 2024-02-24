@@ -23,17 +23,15 @@ export async function queryGraphQL(
     }),
   })
 
-  return await result.json()
+  const json = await result.json()
+  return json
 }
 
 // checks to see if a user exists in the database
-export async function isNewUser(
-  token: string,
-  issuer: string | null
-): Promise<boolean> {
+export async function isNewUser(token: string, issuer: string | null): Promise<boolean> {
   const operationsDoc = `
   query isNewUser($issuer: String!) {
-    Users(where: {issuer: {_eq: $issuer}}) {
+    my_new_schema_users(where: {issuer: {_eq: $issuer}}) {
       email
       id
       issuer
@@ -49,9 +47,16 @@ export async function isNewUser(
     },
     token
   )
-  // if the user exists, return false, otherwise return true
 
-  return response.data.Users.length === 0
+  // return response.data.Users.length === 0
+  // Check if response.data exists and has Users property
+  if (response.data && response.data.my_new_schema_users) {
+    return response.data.my_new_schema_users.length === 0
+  } else {
+    // Log the error response if there's no data or Users property
+    console.error("[Hasura response error]:", response)
+    throw new Error("Failed to fetch Users")
+  }
 }
 
 // adds a new user to the database
@@ -63,7 +68,7 @@ export async function addUser(
 ): Promise<any> {
   const operationsDoc = `
   mutation addUser($issuer: String!, $email: String!, $publicAddress: String!) {
-    insert_Users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress}) {
+    insert_my_new_schema_users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress}) {
       returning {
         email
         id
@@ -94,7 +99,7 @@ export async function findVideoIdByUserId(
 ): Promise<VideoStatsType | null> {
   const operationsDoc = `
   query findVideoIdByUserId($userId: String!, $videoId: String!) {
-    stats(where: { userId: {_eq: $userId}, videoId: {_eq: $videoId }}) {
+    my_new_schema_stats(where: { userId: {_eq: $userId}, videoId: {_eq: $videoId }}) {
       id
       userId
       videoId
@@ -125,7 +130,7 @@ export async function updateStats(
 ) {
   const operationsDoc = `
 mutation updateStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
-  update_stats(
+  update_my_new_schema_stats(
     _set: {watched: $watched, favourited: $favourited}, 
     where: {
       userId: {_eq: $userId}, 
@@ -160,7 +165,7 @@ export async function insertStats(
 }> {
   const operationsDoc = `
   mutation insertStats($favourited: Boolean, $userId: String!, $watched: Boolean!, $videoId: String!) {
-    insert_stats_one(object: {
+    insert_my_new_schema_stats_one(object: {
       favourited: $favourited, 
       userId: $userId, 
       watched: $watched, 
@@ -189,7 +194,7 @@ export async function getWatchedVideos(
 ): Promise<GetWatchedVideosType[]> {
   const operationsDoc = `
   query getWatchedVideos($userId: String!) {
-    stats(where: {
+    my_new_schema_stats(where: {
         userId: {_eq: $userId},
         watched: {_eq: true}}
         ){
@@ -214,7 +219,7 @@ export async function getMyListVideos(
 ): Promise<GetWatchedVideosType[]> {
   const operationsDoc = `
   query favouritedVideos($userId: String!) {
-    stats(where: {
+    my_new_schema_stats(where: {
       userId: {_eq: $userId}, 
       favourited: {_eq: true}
     }) {

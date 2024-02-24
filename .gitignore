@@ -34,3 +34,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.hasura_metadata_2024_02_15_13_39_46_147.json
