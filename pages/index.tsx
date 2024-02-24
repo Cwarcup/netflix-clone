@@ -12,6 +12,8 @@ import {
 } from "@/lib/getYoutubeVideos"
 import styles from "@/styles/Home.module.css"
 
+import { GoogleAnalytics } from "@next/third-parties/google"
+
 import type { CardType, WatchedVideosListType } from "@/types"
 
 type HomeProps = {
@@ -34,6 +36,7 @@ export default function Home({
       <Head>
         <title>Netflix Clone</title>
         <meta name="description" content="Created by Curtis Warcup" />
+        <GoogleAnalytics gaId="G-2CE3D542JK" />
       </Head>
       <Navbar />
       <Banner
@@ -45,11 +48,7 @@ export default function Home({
       <div className={styles.sectionWrapper}>
         <CardSection title="Popular" size="large" videos={popular} />
         {userVideos.length > 0 && (
-          <CardSection
-            title="Watch It Again"
-            size="small"
-            videos={userVideos}
-          />
+          <CardSection title="Watch It Again" size="small" videos={userVideos} />
         )}
 
         <CardSection title="Comedy" size="small" videos={comedy} />
@@ -58,11 +57,7 @@ export default function Home({
           size="small"
           videos={japaneseRealityTv}
         />
-        <CardSection
-          title="Netflix Originals"
-          size="small"
-          videos={netflixOriginals}
-        />
+        <CardSection title="Netflix Originals" size="small" videos={netflixOriginals} />
       </div>
       <Footer />
     </div>
@@ -86,9 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userVideos = await getWatchItAgainVideos(token, userId)
 
   const comedy = await getVideos("Newly released comedy movie netflix")
-  const japaneseRealityTv = await getVideos(
-    "Japanese reality tv netflix trailer"
-  )
+  const japaneseRealityTv = await getVideos("Japanese reality tv netflix trailer")
   const netflixOriginals = await getVideos("Netflix originals trailer")
 
   return {
