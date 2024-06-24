@@ -6,8 +6,6 @@
 
 In order to view the live website, you will need to sign in with your email. You can use any email address, no password is required. Once you sign in, you will be able to view the videos, like/dislike videos, and view your favourites list.
 
-Link: [https://netflixclonedemo.vercel.app/](https://netflixclonedemo.vercel.app/)
-
 ## Preview and Demo Clips
 
 <details>
