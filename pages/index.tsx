@@ -32,13 +32,13 @@ export default function Home({
   return (
     <div className={styles.container}>
       <Head>
-        <title>Netflix Clone</title>
+        <title>Demo Site</title>
         <meta name="description" content="Created by Curtis Warcup" />
       </Head>
       <Navbar />
       <Banner
         title="Breaking Bad"
-        subTitle="A Netflix Original Series"
+        subTitle="A Original Series"
         imgUrl="https://i.ytimg.com/vi/2gTC4uWP3_Y/sddefault.jpg"
         videoId="2gTC4uWP3_Y"
       />
@@ -54,7 +54,7 @@ export default function Home({
           size="small"
           videos={japaneseRealityTv}
         />
-        <CardSection title="Netflix Originals" size="small" videos={netflixOriginals} />
+        <CardSection title="Originals" size="small" videos={netflixOriginals} />
       </div>
       <Footer />
     </div>

@@ -1,5 +1,5 @@
 {
-  "name": "netflix-clone",
+  "name": "personal-demo-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -33,7 +33,7 @@
     "@types/cookie": "^0.5.1",
     "@types/react-modal": "^3.13.1"
   },
-  "description": "![Netflix Clone](/public/static/netflix-clone-preview.png)",
+  "description": "![Demo Project](/public/static/netflix-clone-preview.png)",
   "main": "next.config.js",
   "directories": {
     "lib": "lib"

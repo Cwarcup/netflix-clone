@@ -125,30 +125,22 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Netflix - Sign In</title>
+        <title>Sign In</title>
         <meta
           name="description"
-          content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
+          content="Development project built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
         />
-        <meta name="og:title" content="Netflix - Sign In" />
+        <meta name="og:title" content="Sign In" />
         <meta
           name="og:description"
-          content="Netflix clone built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
+          content="Development project built by Curtis Warcup with Next.js, TypeScript, GraphQL, and Supabase."
         />
-        <meta name="og:image" content="/static/netflix.svg" />
-        <meta name="og:url" content="https://netflixclonedemo.vercel.app" />
       </Head>
       <header className={styles.header}>
         <div className={styles.headerWrapper}>
           <Link className={styles.logoLink} href="/">
             <div className={styles.logoWrapper}>
-              <Image
-                src="/static/netflix.svg"
-                alt="Netflix logo"
-                width={128}
-                height={34}
-                priority
-              />
+              <h1 className={styles.logo}>Notflix</h1>
             </div>
           </Link>
         </div>

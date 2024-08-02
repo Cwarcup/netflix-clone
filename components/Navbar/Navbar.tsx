@@ -77,12 +77,7 @@ const Navbar = () => {
       <div className={styles.wrapper}>
         <Link className={styles.logoLink} href="/">
           <div className={styles.logoWrapper}>
-            <Image
-              src="/static/netflix.svg"
-              alt="Netflix logo"
-              width={128}
-              height={34}
-            />
+            <h1>Notflix</h1>
           </div>
         </Link>
 
