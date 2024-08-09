@@ -1,6 +1,6 @@
 # Notflix Clone
 
-![Notflix Clone](/public/static/notflix-clone-preview.png)
+![Notflix Clone](/public/static/readmeImages/notflix-clone-preview.png)
 
 ## Live Website
 
