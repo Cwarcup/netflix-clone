@@ -38,7 +38,7 @@ export default function Home({
       <Navbar />
       <Banner
         title="Breaking Bad"
-        subTitle="A Original Series"
+        subTitle="A Ñotflix Original Series"
         imgUrl="https://i.ytimg.com/vi/2gTC4uWP3_Y/sddefault.jpg"
         videoId="2gTC4uWP3_Y"
       />

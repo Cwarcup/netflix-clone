@@ -79,7 +79,8 @@
   color: var(--white10);
   font-weight: 600;
   font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 .emailInput {

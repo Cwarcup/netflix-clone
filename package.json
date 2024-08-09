@@ -33,7 +33,7 @@
     "@types/cookie": "^0.5.1",
     "@types/react-modal": "^3.13.1"
   },
-  "description": "![Demo Project](/public/static/netflix-clone-preview.png)",
+  "description": "Project created by Curtis Warcup. This is a demo site and should not be confused with Netflix.",
   "main": "next.config.js",
   "directories": {
     "lib": "lib"
