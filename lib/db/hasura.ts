@@ -120,7 +120,8 @@ export async function findVideoIdByUserId(
     token
   )
 
-  return response?.data?.stats.length > 0 ? response.data.stats : null
+  const stats = response?.data?.my_new_schema_stats ?? []
+  return stats.length > 0 ? stats[0] : null
 }
 
 // update a users stats for a specific video
@@ -210,7 +211,7 @@ export async function getWatchedVideos(
     token
   )
 
-  return response?.data?.stats ?? []
+  return response?.data?.my_new_schema_stats ?? []
 }
 
 export async function getMyListVideos(
@@ -237,5 +238,5 @@ export async function getMyListVideos(
     token
   )
 
-  return response?.data?.stats
+  return response?.data?.my_new_schema_stats
 }

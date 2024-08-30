@@ -16,7 +16,10 @@ const MyList = ({ myListVideos }: Props) => {
     <div>
       <Head>
         <title>My list</title>
-        <meta name="description" content="Created by Curtis Warcup" />
+        <meta
+          name="description"
+          content="Created by Curtis Warcup"
+        />
       </Head>
       <main className={styles.main}>
         <Navbar />
@@ -48,11 +51,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const videos = await getMyList(token, userId)
+  let myListVideos: WatchedVideosListType[] = []
+  try {
+    const result = await getMyList(token, userId)
+    if (Array.isArray(result)) {
+      myListVideos = result
+    } else {
+      console.error("getMyList did not return an array:", result)
+    }
+  } catch (error) {
+    console.error("Error getting my list", error)
+  }
 
   return {
     props: {
-      myListVideos: videos,
+      myListVideos,
     },
   }
 }
