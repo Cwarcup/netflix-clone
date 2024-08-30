@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@magic-sdk/admin": "^1.8.0",
-    "@next/font": "^13.1.2",
     "@next/third-parties": "^14.1.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",

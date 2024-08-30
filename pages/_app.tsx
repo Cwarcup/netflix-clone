@@ -1,5 +1,5 @@
 import "@/styles/globals.css"
-import { Roboto } from "@next/font/google"
+import { Roboto } from "next/font/google"
 import type { AppProps } from "next/app"
 import { useEffect, useState } from "react"
 import { magicClient } from "@/lib/magicClient"
